@@ -40,16 +40,16 @@
 - [x] Generous spacing, label iznad, help text ispod, error ispod help texta crvenim
 
 ## Admin modul (sekcija 11)
-- [ ] AdminLayout — sidebar (Vrste zahtjeva, Korisnici, Audit log), top bar
-- [ ] Ekran A — Popis vrsta zahtjeva: tablica desktop / kartice mobile, filtri (aktivni/svi/arhivirani), search, akcije (uredi, deaktiviraj, dupliciraj, obriši)
-- [ ] Ekran B Tab 1 — Osnovno: naziv hr/en, interni kod (auto-slug), opis hr/en, status toggle, procijenjeno trajanje, redoslijed
-- [ ] Ekran B Tab 2 — Polja forme: lista s drag-drop, modal za dodavanje/uređivanje polja (tip, naziv hr/en, help text, obvezno, napredne postavke collapsible, interni ključ)
-- [ ] Ekran B Tab 3 — Privitci: lista s drag-drop, modal (naziv hr/en, opis, obvezan, dozvoljeni formati multi-select, max veličina dropdown, interni ključ)
-- [ ] Ekran B Tab 4 — Preview: DynamicFormRenderer mode="preview"
-- [ ] Verzioniranje UX: detekcija strukturne promjene u frontendu, modal "Ova vrsta ima X zahtjeva, stvarate v2" s potvrdom
-- [ ] Brisanje UX: provjera usage prije brisanja, modal ako ima aktivne zahtjeve
-- [ ] Dupliciranje: gumb s potvrdom
-- [ ] Svi tekstovi kroz i18n (hr.json ključevi), NULA hardkodiranog teksta
+- [x] AdminLayout — sidebar (Vrste zahtjeva, Korisnici, Audit log), top bar
+- [x] Ekran A — Popis vrsta zahtjeva: tablica desktop / kartice mobile, filtri (aktivni/svi/arhivirani), search, akcije (uredi, deaktiviraj, dupliciraj, obriši)
+- [x] Ekran B Tab 1 — Osnovno: naziv hr/en, interni kod (auto-slug), opis hr/en, status toggle, procijenjeno trajanje, redoslijed
+- [x] Ekran B Tab 2 — Polja forme: lista s drag-drop, modal za dodavanje/uređivanje polja (tip, naziv hr/en, help text, obvezno, napredne postavke collapsible, interni ključ)
+- [x] Ekran B Tab 3 — Privitci: lista s drag-drop, modal (naziv hr/en, opis, obvezan, dozvoljeni formati multi-select, max veličina dropdown, interni ključ)
+- [x] Ekran B Tab 4 — Preview: DynamicFormRenderer mode="preview"
+- [x] Verzioniranje UX: detekcija strukturne promjene u frontendu, modal "Ova vrsta ima X zahtjeva, stvarate v2" s potvrdom
+- [x] Brisanje UX: provjera usage prije brisanja, modal ako ima aktivne zahtjeve
+- [x] Dupliciranje: gumb s potvrdom
+- [x] Svi tekstovi kroz i18n (hr.json ključevi), NULA hardkodiranog teksta
 
 ## Građanin — zahtjevi (sekcija 12)
 - [ ] Ekran 1 — Odabir vrste zahtjeva: /requests/new, flat lista, search bar, chevron
