@@ -9,6 +9,14 @@ import { useAuth } from './AuthProvider';
 import { Button, Input } from '@/shared/components';
 import { useToast } from '@/shared/components';
 
+function homeForRole(role: string): string {
+  switch (role) {
+    case 'jls_admin': return '/admin/request-types';
+    case 'jls_officer': return '/office/inbox';
+    default: return '/';
+  }
+}
+
 const loginSchema = z.object({
   email: z.string().email(),
   password: z.string().min(1),
@@ -24,7 +32,7 @@ export function LoginPage() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const from = (location.state as { from?: { pathname: string } })?.from?.pathname ?? '/';
+  const from = (location.state as { from?: { pathname: string } })?.from?.pathname;
 
   const {
     register,
@@ -41,7 +49,7 @@ export function LoginPage() {
       if (result.mustChangePassword) {
         navigate('/auth/change-password', { replace: true });
       } else {
-        navigate(from, { replace: true });
+        navigate(from ?? homeForRole(result.userType), { replace: true });
       }
     } catch (err: unknown) {
       const status = (err as { response?: { status?: number } })?.response?.status;

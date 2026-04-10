@@ -28,7 +28,11 @@ export function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) 
   }
 
   if (allowedRoles && !allowedRoles.includes(user.userType)) {
-    return <Navigate to="/" replace />;
+    const home = user.userType === 'jls_admin' ? '/admin/request-types'
+      : user.userType === 'jls_officer' ? '/office/inbox' : '/';
+    if (location.pathname !== home) {
+      return <Navigate to={home} replace />;
+    }
   }
 
   return <>{children}</>;

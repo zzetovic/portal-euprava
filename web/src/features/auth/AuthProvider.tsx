@@ -1,6 +1,22 @@
 import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from 'react';
 import { apiClient } from '@/shared/api/client';
 
+const USER_TYPE_MAP: Record<string, AuthUser['userType']> = {
+  Citizen: 'citizen',
+  JlsOfficer: 'jls_officer',
+  JlsAdmin: 'jls_admin',
+  citizen: 'citizen',
+  jls_officer: 'jls_officer',
+  jls_admin: 'jls_admin',
+};
+
+function normalizeUser(raw: Record<string, unknown>): AuthUser {
+  return {
+    ...raw,
+    userType: USER_TYPE_MAP[raw.userType as string] ?? 'citizen',
+  } as AuthUser;
+}
+
 interface AuthUser {
   id: string;
   email: string;
@@ -16,7 +32,7 @@ interface AuthContextType {
   user: AuthUser | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (email: string, password: string) => Promise<{ mustChangePassword: boolean }>;
+  login: (email: string, password: string) => Promise<{ mustChangePassword: boolean; userType: string }>;
   register: (data: RegisterData) => Promise<void>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
@@ -53,8 +69,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(null);
         return;
       }
-      const { data } = await apiClient.get<AuthUser>('/auth/me');
-      setUser(data);
+      const { data } = await apiClient.get('/auth/me');
+      setUser(normalizeUser(data as Record<string, unknown>));
     } catch {
       setUser(null);
       sessionStorage.removeItem('access_token');
@@ -62,13 +78,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = useCallback(async (email: string, password: string) => {
-    const { data } = await apiClient.post<{ accessToken: string; user: AuthUser }>('/auth/login', {
+    const { data } = await apiClient.post<{ accessToken: string; user: Record<string, unknown> }>('/auth/login', {
       email,
       password,
     });
     setAccessToken(data.accessToken);
-    setUser(data.user);
-    return { mustChangePassword: data.user.mustChangePassword };
+    const user = normalizeUser(data.user);
+    setUser(user);
+    return { mustChangePassword: user.mustChangePassword, userType: user.userType };
   }, [setAccessToken]);
 
   const register = useCallback(async (regData: RegisterData) => {

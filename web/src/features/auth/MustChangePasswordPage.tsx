@@ -13,7 +13,7 @@ import { useToast } from '@/shared/components';
 export function MustChangePasswordPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { refreshUser } = useAuth();
+  const { refreshUser, user } = useAuth();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -46,7 +46,10 @@ export function MustChangePasswordPage() {
         newPassword: data.newPassword,
       });
       await refreshUser();
-      navigate('/');
+      const role = user?.userType ?? 'citizen';
+      const home = role === 'jls_admin' ? '/admin/request-types'
+        : role === 'jls_officer' ? '/office/inbox' : '/';
+      navigate(home);
     } catch {
       toast('error', t('common.error'));
     } finally {
