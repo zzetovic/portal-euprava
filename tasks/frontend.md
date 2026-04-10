@@ -81,6 +81,6 @@
 - [x] Sidebar badge: unread-count, polling svakih 30s
 
 ## i18n
-- [ ] hr.json — svi ključevi za sve gore navedene ekrane
-- [ ] en.json — prazni placeholder-i (isti ključevi, prazne vrijednosti ili engleski ako usput)
-- [ ] Provjera: NULA hardkodiranog hrvatskog teksta u komponentama
+- [x] hr.json — svi ključevi za sve gore navedene ekrane
+- [x] en.json — prazni placeholder-i (isti ključevi, prazne vrijednosti ili engleski ako usput)
+- [x] Provjera: NULA hardkodiranog hrvatskog teksta u komponentama
