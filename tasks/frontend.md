@@ -52,16 +52,16 @@
 - [x] Svi tekstovi kroz i18n (hr.json ključevi), NULA hardkodiranog teksta
 
 ## Građanin — zahtjevi (sekcija 12)
-- [ ] Ekran 1 — Odabir vrste zahtjeva: /requests/new, flat lista, search bar, chevron
-- [ ] Ekran 2 — Preflight: /requests/new/{code}, naziv, opis, "Što ćete trebati" (obvezna polja + privitci), "Što se događa nakon" (X radnih dana), sticky gumb "Započni zahtjev" (DISABLED ako email nije verificiran + inline upozorenje)
-- [ ] Ekran 3 — Forma: /requests/{id}/edit, sticky header s auto-save indikatorom, DynamicFormRenderer mode="edit", sekcija privitci (upload s progress bar, thumbnail/ikona, zamijeni/ukloni), sticky footer (spremi + dalje)
-- [ ] Auto-save: debounced 3s PATCH, If-Match ETag, 409 handling (toast "uređeno u drugom tabu"), indikator "Spremljeno u HH:MM"
-- [ ] Upload privitka: native file picker, klijentska MIME/veličina validacija, multipart POST, progress bar, retry na fail
-- [ ] Ekran 4 — Potvrda: /requests/{id}/review, sažetak svih odgovora s "Uredi" linkovima, privitci, checkbox "Potvrđujem...", sticky footer natrag+pošalji (disabled dok checkbox nije čekiran)
-- [ ] Ekran 5 — Potvrda slanja: /requests/{id}/submitted, checkmark, referentni broj (krupno + copy gumb), email info, gumbi za dalje
-- [ ] Ekran 6 — Moji zahtjevi: /requests, filter chips (svi/nacrti/u obradi/zaprimljeni/odbijeni), kartice sa status badge, empty state
-- [ ] Ekran 7 — Detalj: /requests/{id}, sadržaj po statusu (draft: banner+nastavi/obriši, submitted: read-only+povijest, received: zeleni banner+akt broj, rejected: burgundy banner+razlog+novi zahtjev gumb)
-- [ ] Session timeout handling: axios interceptor silent refresh, sessionStorage fallback za formu
+- [x] Ekran 1 — Odabir vrste zahtjeva: /requests/new, flat lista, search bar, chevron
+- [x] Ekran 2 — Preflight: /requests/new/{code}, naziv, opis, "Što ćete trebati" (obvezna polja + privitci), "Što se događa nakon" (X radnih dana), sticky gumb "Započni zahtjev" (DISABLED ako email nije verificiran + inline upozorenje)
+- [x] Ekran 3 — Forma: /requests/{id}/edit, sticky header s auto-save indikatorom, DynamicFormRenderer mode="edit", sekcija privitci (upload s progress bar, thumbnail/ikona, zamijeni/ukloni), sticky footer (spremi + dalje)
+- [x] Auto-save: debounced 3s PATCH, If-Match ETag, 409 handling (toast "uređeno u drugom tabu"), indikator "Spremljeno u HH:MM"
+- [x] Upload privitka: native file picker, klijentska MIME/veličina validacija, multipart POST, progress bar, retry na fail
+- [x] Ekran 4 — Potvrda: /requests/{id}/review, sažetak svih odgovora s "Uredi" linkovima, privitci, checkbox "Potvrđujem...", sticky footer natrag+pošalji (disabled dok checkbox nije čekiran)
+- [x] Ekran 5 — Potvrda slanja: /requests/{id}/submitted, checkmark, referentni broj (krupno + copy gumb), email info, gumbi za dalje
+- [x] Ekran 6 — Moji zahtjevi: /requests, filter chips (svi/nacrti/u obradi/zaprimljeni/odbijeni), kartice sa status badge, empty state
+- [x] Ekran 7 — Detalj: /requests/{id}, sadržaj po statusu (draft: banner+nastavi/obriši, submitted: read-only+povijest, received: zeleni banner+akt broj, rejected: burgundy banner+razlog+novi zahtjev gumb)
+- [x] Session timeout handling: axios interceptor silent refresh, sessionStorage fallback za formu
 
 ## Officer — back-office (sekcija 13)
 - [ ] OfficerLayout — sidebar (Inbox s badge brojačem), top bar, desktop-first
