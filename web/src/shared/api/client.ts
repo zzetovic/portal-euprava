@@ -13,7 +13,7 @@ apiClient.interceptors.request.use((config) => {
     config.headers.Authorization = `Bearer ${token}`;
   }
 
-  const tenantCode = localStorage.getItem('tenant_code');
+  const tenantCode = localStorage.getItem('tenant_code') || import.meta.env.VITE_TENANT_CODE;
   if (tenantCode) {
     config.headers['X-Tenant-Code'] = tenantCode;
   }

@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback, createContext, useContext, type ReactNode } from 'react';
+import { generateId } from '../utils/uuid';
 
 type ToastType = 'success' | 'error' | 'warning';
 
@@ -64,7 +65,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const addToast = useCallback((type: ToastType, message: string) => {
-    const id = crypto.randomUUID();
+    const id = generateId();
     setToasts((prev) => [...prev, { id, type, message }]);
   }, []);
 

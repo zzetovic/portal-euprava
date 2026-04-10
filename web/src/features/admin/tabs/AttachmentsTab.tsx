@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { RequestTypeAttachment } from '../api';
 import { Button, Modal, Input, Textarea, Select, Checkbox, EmptyState } from '@/shared/components';
+import { generateId } from '@/shared/utils/uuid';
 
 function slugify(text: string): string {
   return text
@@ -75,7 +76,7 @@ export function AttachmentsTab({ attachments, onChange }: AttachmentsTabProps) {
 
   const handleSave = () => {
     const att: RequestTypeAttachment = {
-      id: editingIndex !== null ? attachments[editingIndex]!.id : crypto.randomUUID(),
+      id: editingIndex !== null ? attachments[editingIndex]!.id : generateId(),
       attachmentKey: form.attachmentKey || slugify(form.labelHr),
       labelI18n: { hr: form.labelHr, ...(form.labelEn ? { en: form.labelEn } : {}) },
       descriptionI18n: form.descriptionHr ? { hr: form.descriptionHr, ...(form.descriptionEn ? { en: form.descriptionEn } : {}) } : null,

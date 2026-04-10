@@ -1,10 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using Portal.Infrastructure.Persistence;
+
 namespace Portal.Api.Middleware;
 
 public class TenantMiddleware(RequestDelegate next)
 {
     private const string TenantHeader = "X-Tenant-Code";
 
-    public async Task InvokeAsync(HttpContext context)
+    public async Task InvokeAsync(HttpContext context, PortalDbContext dbContext)
     {
         if (context.Request.Path.StartsWithSegments("/api"))
         {
@@ -26,7 +29,25 @@ public class TenantMiddleware(RequestDelegate next)
             }
             else
             {
-                context.Items["TenantCode"] = tenantCode.ToString();
+                var code = tenantCode.ToString();
+                context.Items["TenantCode"] = code;
+
+                // Resolve tenant ID eagerly using a raw query to avoid the
+                // TenantConnectionInterceptor recursion (the interceptor calls
+                // GetCurrentTenantId which would query via the same DbContext).
+                var conn = dbContext.Database.GetDbConnection();
+                await conn.OpenAsync();
+                await using var cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT id FROM tenants WHERE code = @code AND is_active = true LIMIT 1";
+                var param = cmd.CreateParameter();
+                param.ParameterName = "code";
+                param.Value = code;
+                cmd.Parameters.Add(param);
+                var result = await cmd.ExecuteScalarAsync();
+                if (result is Guid tenantId)
+                {
+                    context.Items["TenantId"] = tenantId;
+                }
             }
         }
 
@@ -37,8 +58,6 @@ public class TenantMiddleware(RequestDelegate next)
     {
         return path.StartsWithSegments("/api/v1/health")
             || path.StartsWithSegments("/api/v1/meta")
-            || path.StartsWithSegments("/api/v1/auth/verify-email")
-            || path.StartsWithSegments("/api/v1/auth/refresh")
-            || path.StartsWithSegments("/api/v1/auth/password/reset");
+            || path.StartsWithSegments("/api/v1/auth");
     }
 }

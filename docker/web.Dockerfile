@@ -5,6 +5,8 @@ COPY web/package.json web/package-lock.json* ./
 RUN npm ci
 
 COPY web/ .
+ARG VITE_TENANT_CODE=pilot-jls
+ENV VITE_TENANT_CODE=$VITE_TENANT_CODE
 RUN npm run build
 
 # Nginx for serving

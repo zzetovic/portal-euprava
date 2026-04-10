@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { RequestTypeField } from '../api';
 import { Button, Modal, Input, Select, Checkbox, EmptyState } from '@/shared/components';
+import { generateId } from '@/shared/utils/uuid';
 
 const fieldTypes = ['text', 'textarea', 'number', 'date', 'select', 'checkbox', 'oib', 'iban', 'email', 'phone'] as const;
 
@@ -74,7 +75,7 @@ export function FieldsTab({ fields, onChange }: FieldsTabProps) {
 
   const handleSaveField = () => {
     const field: RequestTypeField = {
-      id: editingIndex !== null ? fields[editingIndex]!.id : crypto.randomUUID(),
+      id: editingIndex !== null ? fields[editingIndex]!.id : generateId(),
       fieldKey: form.fieldKey || slugify(form.labelHr),
       fieldType: form.fieldType,
       labelI18n: { hr: form.labelHr, ...(form.labelEn ? { en: form.labelEn } : {}) },
