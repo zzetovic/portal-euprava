@@ -1,0 +1,33 @@
+{
+  "common": {
+    "loading": "Učitavanje...",
+    "save": "Spremi",
+    "cancel": "Odustani",
+    "delete": "Obriši",
+    "edit": "Uredi",
+    "back": "Natrag",
+    "next": "Dalje",
+    "submit": "Pošalji",
+    "search": "Pretraži",
+    "close": "Zatvori",
+    "confirm": "Potvrdi",
+    "yes": "Da",
+    "no": "Ne",
+    "error": "Greška",
+    "success": "Uspjeh"
+  },
+  "auth": {
+    "login": "Prijava",
+    "logout": "Odjava",
+    "register": "Registracija",
+    "email": "Email adresa",
+    "password": "Lozinka",
+    "forgotPassword": "Zaboravljena lozinka?"
+  },
+  "nav": {
+    "home": "Početna",
+    "requests": "Moji zahtjevi",
+    "finance": "Financije",
+    "notifications": "Obavijesti"
+  }
+}
