@@ -1,3 +1,4 @@
+using Portal.Api.Cli;
 using Portal.Api.Endpoints;
 using Portal.Api.Middleware;
 using Portal.Api.Services;
@@ -51,6 +52,14 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+// CLI mode: if args contain "bootstrap-tenant", run CLI and exit
+if (args.Length > 0 && args[0] == "bootstrap-tenant")
+{
+    var rootCommand = BootstrapTenantCommand.ConfigureBootstrapCommand(app.Services);
+    await rootCommand.InvokeAsync(args);
+    return;
+}
 
 // Middleware pipeline
 app.UseMiddleware<ExceptionHandlingMiddleware>();

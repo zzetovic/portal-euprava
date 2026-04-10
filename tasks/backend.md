@@ -13,13 +13,13 @@
 - [x] must_change_password flag — force password change on first login for bootstrap users
 
 ## Bootstrap tenant CLI (sekcija 19.2)
-- [ ] BootstrapTenantCommand.cs — System.CommandLine registration in Program.cs
-- [ ] Idempotentno kreiranje tenanta (code, name, oib, settings)
-- [ ] Kreiranje admin usera (jls_admin, email_verified_at=now, must_change_password=true)
-- [ ] Opcionalno kreiranje officer usera
-- [ ] Audit log s user_id=NULL, action=bootstrap.*, changed_by_source=system
-- [ ] Stdout ispis credentials (samo jednom)
-- [ ] Integration test: pokretanje dva puta uzastopno = isti rezultat
+- [x] BootstrapTenantCommand.cs — System.CommandLine registration in Program.cs
+- [x] Idempotentno kreiranje tenanta (code, name, oib, settings)
+- [x] Kreiranje admin usera (jls_admin, email_verified_at=now, must_change_password=true)
+- [x] Opcionalno kreiranje officer usera
+- [x] Audit log s user_id=NULL, action=bootstrap.*, changed_by_source=system
+- [x] Stdout ispis credentials (samo jednom)
+- [x] Integration test: pokretanje dva puta uzastopno = isti rezultat
 
 ## Admin — vrste zahtjeva (sekcija 11 + API 10.5)
 - [ ] GET /admin/request-types — lista s filterima (active, archived, search)
