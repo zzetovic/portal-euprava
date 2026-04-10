@@ -12,16 +12,16 @@
 - [x] Viewport meta tag + mobile-first CSS reset (box-sizing, overflow-x hidden, img max-width)
 
 ## Auth stranice
-- [ ] Login stranica — email + password, error handling, redirect na dashboard
-- [ ] Register stranica — citizen self-registration, email + password + ime + prezime + OIB (opcionalno) + telefon (opcionalno)
-- [ ] Verify email stranica — prima token iz URL-a, poziva API, success/error state
-- [ ] Forgot password stranica — email input, success poruka
-- [ ] Reset password stranica — nova lozinka, prima token iz URL-a
-- [ ] Must-change-password stranica — za bootstrap korisnike pri prvom loginu
-- [ ] Auth context/provider — access token u memoriji, refresh token u httpOnly cookie
-- [ ] Axios interceptor — auto-refresh na 401, silent retry
-- [ ] Protected route wrapper — redirect na login ako nema tokena
-- [ ] Role-based route guard — citizen vs officer vs admin
+- [x] Login stranica — email + password, error handling, redirect na dashboard
+- [x] Register stranica — citizen self-registration, email + password + ime + prezime + OIB (opcionalno) + telefon (opcionalno)
+- [x] Verify email stranica — prima token iz URL-a, poziva API, success/error state
+- [x] Forgot password stranica — email input, success poruka
+- [x] Reset password stranica — nova lozinka, prima token iz URL-a
+- [x] Must-change-password stranica — za bootstrap korisnike pri prvom loginu
+- [x] Auth context/provider — access token u memoriji, refresh token u httpOnly cookie
+- [x] Axios interceptor — auto-refresh na 401, silent retry
+- [x] Protected route wrapper — redirect na login ako nema tokena
+- [x] Role-based route guard — citizen vs officer vs admin
 
 ## Citizen layout + routing
 - [ ] CitizenLayout — header (logo, nav, user dropdown s logout), footer, mobile hamburger
