@@ -13,6 +13,19 @@ using Portal.Infrastructure.Persistence;
 using Portal.Infrastructure.Storage;
 using Serilog;
 
+// CLI mode: lightweight host with only DB + identity, no workers/web stack
+if (args.Length > 0 && args[0] == "bootstrap-tenant")
+{
+    var cliBuilder = Host.CreateApplicationBuilder(args);
+    cliBuilder.Services.AddPersistence(cliBuilder.Configuration);
+    cliBuilder.Services.AddIdentityInfrastructure(cliBuilder.Configuration);
+    cliBuilder.Services.AddScoped<ITenantProvider, NullTenantProvider>();
+
+    using var cliHost = cliBuilder.Build();
+    var rootCommand = BootstrapTenantCommand.ConfigureBootstrapCommand(cliHost.Services);
+    return await rootCommand.InvokeAsync(args);
+}
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Serilog
@@ -63,14 +76,6 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// CLI mode: if args contain "bootstrap-tenant", run CLI and exit
-if (args.Length > 0 && args[0] == "bootstrap-tenant")
-{
-    var rootCommand = BootstrapTenantCommand.ConfigureBootstrapCommand(app.Services);
-    await rootCommand.InvokeAsync(args);
-    return;
-}
-
 // Middleware pipeline
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseMiddleware<TenantMiddleware>();
@@ -93,3 +98,4 @@ app.MapNotificationEndpoints();
 app.MapMetaEndpoints();
 
 app.Run();
+return 0;
