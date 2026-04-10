@@ -72,10 +72,10 @@
 - [x] OutboxStaleAlerter worker — 24h, dead_letter alert adminu (in-app + email)
 
 ## Notifikacije (sekcija 14 + API 10.7)
-- [ ] GET /notifications — paginirano, za current user
-- [ ] POST /notifications/{id}/read — mark is_read, set read_at
-- [ ] POST /notifications/read-all — bulk mark za current user
-- [ ] EmailDispatcher BackgroundService — 5s interval, procesira pending notification_deliveries channel=email
+- [x] GET /notifications — paginirano, za current user
+- [x] POST /notifications/{id}/read — mark is_read, set read_at
+- [x] POST /notifications/read-all — bulk mark za current user
+- [x] EmailDispatcher BackgroundService — 5s interval, procesira pending notification_deliveries channel=email
 - [ ] Razor email templates skeleton (zahtjev podnesen, zaprimljen, odbijen, draft istječe)
 
 ## Background workeri (sekcija 15)
