@@ -64,21 +64,21 @@
 - [x] Session timeout handling: axios interceptor silent refresh, sessionStorage fallback za formu
 
 ## Officer — back-office (sekcija 13)
-- [ ] OfficerLayout — sidebar (Inbox s badge brojačem), top bar, desktop-first
-- [ ] Ekran A — Inbox: /office/inbox, tabovi (na čekanju/zaprimljeni/odbijeni/svi), tablica desktop / kartice mobile
-- [ ] InboxTable — sortable stupci, status indikator (plava točka Novo / siva Pregledano), vrsta, podnositelj, OIB, ref broj, privitci, vrijeme od podnošenja
-- [ ] InboxFilters — slide-out panel: vrsta zahtjeva multi-select, datum range, OIB/ref text, sort
-- [ ] Search bar — instant po OIB/ime/ref broj/akt ID, debounce 300ms
-- [ ] Pagination — 25/50/100, default 25
-- [ ] Real-time refresh toast: "1 novi zahtjev (osvježi)" — ne auto-refresh
-- [ ] Ekran B — Detalj: /office/requests/{id}, dvostupčani desktop (60/40), jednostupčani mobile
-- [ ] Lijevi stupac: vrsta, DynamicFormRenderer mode="readonly", AttachmentList s preview/download
-- [ ] Desni stupac: podnositelj info, metapodaci, HistoryTimeline
-- [ ] AttachmentPreviewModal — PDF.js za PDF, native <img> za slike, lightbox stil
-- [ ] AcceptRequestModal — potvrda tekst, loading state "Zapisivanje u SEUP...", sync success → toast + redirect, async → "U tijeku" + redirect, dead-letter → žuti banner + retry
-- [ ] RejectRequestModal — dropdown razlog (iz /office/rejection-reasons), textarea internal note (obvezan ako razlog=other), upozorenje "Podnositelj će biti obaviješten"
-- [ ] OutboxStatusIndicator — "U procesiranju" badge za zahtjeve čiji outbox je aktivan
-- [ ] Sidebar badge: unread-count, polling svakih 30s
+- [x] OfficerLayout — sidebar (Inbox s badge brojačem), top bar, desktop-first
+- [x] Ekran A — Inbox: /office/inbox, tabovi (na čekanju/zaprimljeni/odbijeni/svi), tablica desktop / kartice mobile
+- [x] InboxTable — sortable stupci, status indikator (plava točka Novo / siva Pregledano), vrsta, podnositelj, OIB, ref broj, privitci, vrijeme od podnošenja
+- [x] InboxFilters — slide-out panel: vrsta zahtjeva multi-select, datum range, OIB/ref text, sort
+- [x] Search bar — instant po OIB/ime/ref broj/akt ID, debounce 300ms
+- [x] Pagination — 25/50/100, default 25
+- [x] Real-time refresh toast: "1 novi zahtjev (osvježi)" — ne auto-refresh
+- [x] Ekran B — Detalj: /office/requests/{id}, dvostupčani desktop (60/40), jednostupčani mobile
+- [x] Lijevi stupac: vrsta, DynamicFormRenderer mode="readonly", AttachmentList s preview/download
+- [x] Desni stupac: podnositelj info, metapodaci, HistoryTimeline
+- [x] AttachmentPreviewModal — PDF.js za PDF, native <img> za slike, lightbox stil
+- [x] AcceptRequestModal — potvrda tekst, loading state "Zapisivanje u SEUP...", sync success → toast + redirect, async → "U tijeku" + redirect, dead-letter → žuti banner + retry
+- [x] RejectRequestModal — dropdown razlog (iz /office/rejection-reasons), textarea internal note (obvezan ako razlog=other), upozorenje "Podnositelj će biti obaviješten"
+- [x] OutboxStatusIndicator — "U procesiranju" badge za zahtjeve čiji outbox je aktivan
+- [x] Sidebar badge: unread-count, polling svakih 30s
 
 ## i18n
 - [ ] hr.json — svi ključevi za sve gore navedene ekrane
