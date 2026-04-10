@@ -58,6 +58,8 @@ app.UseMiddleware<TenantMiddleware>();
 
 app.UseCors();
 app.UseAuthentication();
+app.UseMiddleware<TenantJwtCrossCheckMiddleware>();
+app.UseMiddleware<MustChangePasswordMiddleware>();
 app.UseAuthorization();
 
 app.UseSerilogRequestLogging();

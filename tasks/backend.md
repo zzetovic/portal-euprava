@@ -9,8 +9,8 @@
 - [x] POST /auth/password/forgot — generate password_reset_token, enqueue email
 - [x] POST /auth/password/reset — validate token, update password_hash
 - [x] GET /auth/me — return current user profile from JWT claims
-- [ ] Tenant middleware — extract X-Tenant-Code header, cross-check with JWT claim, SET app.tenant_id for RLS
-- [ ] must_change_password flag — force password change on first login for bootstrap users
+- [x] Tenant middleware — extract X-Tenant-Code header, cross-check with JWT claim, SET app.tenant_id for RLS
+- [x] must_change_password flag — force password change on first login for bootstrap users
 
 ## Bootstrap tenant CLI (sekcija 19.2)
 - [ ] BootstrapTenantCommand.cs — System.CommandLine registration in Program.cs

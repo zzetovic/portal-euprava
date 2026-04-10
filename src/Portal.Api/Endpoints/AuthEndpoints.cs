@@ -1,4 +1,5 @@
 using MediatR;
+using Portal.Application.Commands.Auth.ChangePassword;
 using Portal.Application.Commands.Auth.ForgotPassword;
 using Portal.Application.Commands.Auth.Login;
 using Portal.Application.Commands.Auth.Logout;
@@ -169,6 +170,28 @@ public static class AuthEndpoints
             catch (InvalidOperationException)
             {
                 return Results.Unauthorized();
+            }
+        }).RequireAuthorization();
+
+        group.MapPost("/password/change", async (
+            ChangePasswordRequest request,
+            ICurrentUserService currentUser,
+            IMediator mediator) =>
+        {
+            if (currentUser.UserId is null)
+                return Results.Unauthorized();
+
+            try
+            {
+                await mediator.Send(new ChangePasswordCommand(
+                    currentUser.UserId.Value,
+                    request.CurrentPassword,
+                    request.NewPassword));
+                return Results.Ok(new { message = "Lozinka je uspješno promijenjena." });
+            }
+            catch (InvalidOperationException ex) when (ex.Message == "INVALID_CURRENT_PASSWORD")
+            {
+                return Results.BadRequest(ProblemDetailsFor("Trenutna lozinka nije ispravna.", 400));
             }
         }).RequireAuthorization();
     }
