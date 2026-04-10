@@ -1,0 +1,58 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: portal_euprava
+      POSTGRES_USER: portal
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-portal_dev}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/01-init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U portal -d portal_euprava"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+  api:
+    build:
+      context: ..
+      dockerfile: docker/api.Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__PortalDb: "Host=postgres;Port=5432;Database=portal_euprava;Username=portal;Password=${POSTGRES_PASSWORD:-portal_dev}"
+      Jwt__Secret: ${JWT_SECRET:-dev-jwt-secret-minimum-32-characters-long-change-in-prod}
+      Smtp__Host: mailhog
+      Smtp__Port: 1025
+      Storage__AttachmentBasePath: /var/portal/attachments
+      Storage__ArchiveIntakePath: /var/portal/archive-staging
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - portal_attachments:/var/portal/attachments
+      - portal_archive:/var/portal/archive-staging
+
+  web:
+    build:
+      context: ..
+      dockerfile: docker/web.Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:
+  portal_attachments:
+  portal_archive:
