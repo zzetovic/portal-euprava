@@ -24,10 +24,10 @@
 - [x] Role-based route guard — citizen vs officer vs admin
 
 ## Citizen layout + routing
-- [ ] CitizenLayout — header (logo, nav, user dropdown s logout), footer, mobile hamburger
-- [ ] Routing: /requests/*, /finance/*, /profile
-- [ ] Početna stranica nakon logina — tri kartice: "Moje financije", "Moji zahtjevi", "Novi zahtjev"
-- [ ] Lazy loading feature modula
+- [x] CitizenLayout — header (logo, nav, user dropdown s logout), footer, mobile hamburger
+- [x] Routing: /requests/*, /finance/*, /profile
+- [x] Početna stranica nakon logina — tri kartice: "Moje financije", "Moji zahtjevi", "Novi zahtjev"
+- [x] Lazy loading feature modula
 
 ## DynamicFormRenderer (KLJUČNA KOMPONENTA — shared)
 - [ ] mode="edit" — react-hook-form + zod dinamička schema iz form_schema_snapshot
