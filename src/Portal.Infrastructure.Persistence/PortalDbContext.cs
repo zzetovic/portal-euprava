@@ -23,7 +23,7 @@ public class PortalDbContext(DbContextOptions<PortalDbContext> options) : DbCont
     public DbSet<IntegrationOutbox> IntegrationOutbox => Set<IntegrationOutbox>();
     public DbSet<Notification> Notifications => Set<Notification>();
     public DbSet<NotificationDelivery> NotificationDeliveries => Set<NotificationDelivery>();
-    public DbSet<FinanceSnapshot> FinanceSnapshots => Set<FinanceSnapshot>();
+    public DbSet<Domain.Entities.FinanceSnapshot> FinanceSnapshots => Set<Domain.Entities.FinanceSnapshot>();
     public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
     public DbSet<DeploymentBackup> DeploymentBackups => Set<DeploymentBackup>();
 

@@ -1,3 +1,4 @@
+using System.CommandLine;
 using Portal.Api.Cli;
 using Portal.Api.Endpoints;
 using Portal.Api.Middleware;

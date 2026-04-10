@@ -22,7 +22,7 @@ public interface IPortalDbContext
     DbSet<IntegrationOutbox> IntegrationOutbox { get; }
     DbSet<Notification> Notifications { get; }
     DbSet<NotificationDelivery> NotificationDeliveries { get; }
-    DbSet<FinanceSnapshot> FinanceSnapshots { get; }
+    DbSet<Portal.Domain.Entities.FinanceSnapshot> FinanceSnapshots { get; }
     DbSet<AuditLog> AuditLogs { get; }
     DbSet<DeploymentBackup> DeploymentBackups { get; }
 
