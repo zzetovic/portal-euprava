@@ -1,6 +1,6 @@
 # CLAUDE.md — Portal eUprava (Pilot JLS)
 
-> **Verzija:** 1.2
+> **Verzija:** 1.3
 > **Autor:** Agent #2 (Arhitekt)
 > **Za:** Agent #1 (Implementer) i sve buduće Claude instance koje rade na repu
 > **Kako čitati:** Ovo je priručnik, ne roman. Svaka sekcija je samostalna. Sadržaj na vrhu, ⚠️ TODO sekcija na dnu.
@@ -44,6 +44,8 @@ Portal za komunikaciju građana s jedinicom lokalne samouprave (JLS). Tanki sloj
 - konfiguracijski alat za admina (vrste zahtjeva, polja, privitci)
 
 SEUP i modul financija JLS-a žive u **jednoj SQL Server bazi** na lokalnom serveru JLS-a. Portal ima vanjski pristup (VPN/fiksni IP + firewall).
+
+**Važno:** SEUP je naš vlastiti proizvod — mi ga razvijamo. To znači da imamo puni pristup SEUP bazi, možemo dodavati stupce i pisati stored procedure. Nema pregovaranja s trećom stranom za shema promjene.
 
 ---
 
@@ -230,6 +232,7 @@ users (
   phone varchar(32) NULL,
   user_type varchar(20) NOT NULL
     CHECK (user_type IN ('citizen','jls_officer','jls_admin')),
+  seup_subject_id bigint NULL,              -- SubjektID iz tblDatSubjekti, NULL dok nije odobrena e-komunikacija
   email_verified_at timestamptz NULL,
   last_login_at timestamptz NULL,
   is_active bool DEFAULT true,
@@ -260,6 +263,7 @@ request_types (
   sort_order int,
   version int DEFAULT 1,                    -- bumpa se na strukturnu promjenu
   estimated_processing_days int NULL,       -- NULL → fallback na tenants.settings.default_processing_days → 5
+  is_ecommunication_request bool DEFAULT false,  -- true = posebna vrsta "Zahtjev za e-komunikaciju", accept flow ažurira users.seup_subject_id umjesto upisa u tblAkti
   created_at, updated_at, deleted_at,
   UNIQUE (tenant_id, code)
 )
@@ -528,6 +532,7 @@ public record WriteAktCommand(
     string CitizenFullName,
     string CitizenAddress,
     string CitizenEmail,
+    long SeupSubjectId,               // iz users.seup_subject_id — obavezan, provjera prije poziva
     string Subject,
     string BodyText,
     DateTimeOffset ReceivedAt,
@@ -580,28 +585,68 @@ public interface IEmailSender
 1. Otvori SQL transakciju
 2. Provjeri postoji li već akt za ovaj `PortalRequestID` (vidi 9.3 sloj 4):
    - Ako da → ROLLBACK, vrati `IsDuplicate=true` s postojećim `AktID`
-3. Za svaki privitak:
+   - Ako stupac `PortalRequestID` ne postoji na `tblAkti` → preskoči provjeru, log warning
+3. Generiraj novi AktID: `SELECT ISNULL(MAX(AktID), 0) + 1 FROM tblAkti` (SEUP ne koristi IDENTITY — aplikacija dodjeljuje)
+4. Za svaki privitak:
    - Otvori stream iz `IAttachmentStorage`
    - Pozovi `IArchiveFileCopier.CopyToIntakeAsync` → dobiješ putanju
-4. `INSERT INTO tblAkti (..., PortalRequestID) OUTPUT INSERTED.AktID VALUES (...)` → dobiješ `AktID`
-5. `INSERT INTO tblPRBiljeska (AktID, ...)` → podaci o subjektu i načinu podneska
-6. Za svaki privitak: `INSERT INTO tblDatoteke (AktID, ..., putanja)`
-7. COMMIT
-8. Vrati `AktWriteResult { Success=true, AktId=...}`
+5. `INSERT INTO tblAkti`:
+   - `AktID` = generirani broj
+   - `VrstaID` = 0 (ulazni dokument / podnesak)
+   - `Opis` = naziv vrste zahtjeva + referentni broj (max 255 chars)
+   - `DatumKreiranjaAkta` = danas
+   - `DatumPrimitka` = danas
+   - `PredmetID` = 0 (uvijek 0 kod primitka)
+   - `StvarateljID` = 0 (uvijek 0 kod primitka)
+   - `IDSesije` = NULL (za sad, riješit će se s SEUP launcher integracijom)
+   - `PortalRequestID` = request.id (UUID) — ako stupac postoji
+6. `INSERT INTO tblPRBiljeska`:
+   - `BiljeskaID` = `SELECT ISNULL(MAX(BiljeskaID), 0) + 1 FROM tblPRBiljeska`
+   - `Datum` = danas
+   - `SubjektID` = iz `users.seup_subject_id` (građanin mora imati odobrenu e-komunikaciju)
+   - `NacinBiljeske` = 3000 (fiksno za portal podnesak, šifarnik se proširuje kasnije)
+   - `Opis` = opis zahtjeva (max 255 chars)
+   - `AktID` = generirani AktID iz koraka 5
+   - `IDSesije` = NULL (za sad)
+7. Za svaki privitak: `INSERT INTO tblDatoteke`:
+   - `DatotekaID` = `SELECT ISNULL(MAX(DatotekaID), 0) + 1 FROM tblDatoteke`
+   - `Datoteka` = opis datoteke (attachment label, max 255)
+   - `DatumDatoteke` = danas
+   - `LokacijaDatoteke` = putanja iz `IArchiveFileCopier` (max 255)
+   - `NazivDatoteke` = originalno ime fajla (max 255)
+   - `AktID` = generirani AktID iz koraka 5
+   - `RbrDatoteke` = redni broj privitka (1, 2, 3...)
+   - `IDSesije` = NULL (za sad)
+8. COMMIT
+9. Vrati `AktWriteResult { Success=true, AktId=generirani AktID }`
 
 **Na exception:**
 - ROLLBACK SQL transakcije
 - Best-effort cleanup kopiranih fajlova iz intake foldera (ako neki nisu još pokupljeni od arhive servisa). Ako i to padne — log kao warning, ručno čišćenje od strane admina.
 - Vrati `AktWriteResult { Success=false, ErrorCode=..., ErrorMessage=... }`
 
-⚠️ Točni stupci za INSERT-e — vidi sekciju 21.
+⚠️ Točni stupci za INSERT-e — vidi gornji tok (v1.3, svi stupci su poznati).
+
+**PortalRequestID startup check:**
+
+Portal pri startupu provjerava postoji li stupac `PortalRequestID` na `tblAkti`:
+
+```sql
+SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS 
+WHERE TABLE_NAME = 'tblAkti' AND COLUMN_NAME = 'PortalRequestID'
+```
+
+- Ako postoji → idempotencija sloj 4 aktivan, log info
+- Ako NE postoji → log WARNING: "PortalRequestID stupac nije pronađen na tblAkti — idempotencija sloj 4 nije aktivan. Dodajte stupac za punu zaštitu od duplikata."
+- Portal i dalje radi, ali bez sloja 4 zaštite (prva tri sloja su i dalje aktivna)
 
 ### 8.4 Ostali adapteri
 
 - `LocalDbFinanceReader` — SELECT po OIB-u, mapiranje u `FinanceSnapshot`
 - `LocalFileSystemAttachmentStorage` — `/var/portal/attachments/{tenant}/{yyyy}/{mm}/{guid}` (default)
 - `LocalArchiveFileCopier` — kopira u dogovoreni intake folder (⚠️ putanja čeka input)
-- `SmtpEmailSender` — MailKit, konfigurabilan host/port/credentials
+- `SmtpEmailSender` — MailKit, konfigurabilan host/port/credentials (fallback)
+- `ResendEmailSender` — Resend.net SDK, API ključ iz env var `RESEND_API_KEY` (produkcija)
 - `NullEmailSender` — dev/test
 
 ---
@@ -1007,6 +1052,27 @@ Svaka admin akcija → `audit_log`:
 Mobitel u redu za kavu. Minimalno koraka, jasan primary gumb sticky na dnu. Auto-save kako se ne bi izgubili podaci.
 
 ### 12.2 Ekrani
+
+**Nulti korak — Zahtjev za elektronsku komunikaciju**
+
+Prije nego građanin može podnositi ikakve zahtjeve, mora biti povezan sa SEUP-om (imati `seup_subject_id`). Flow:
+
+1. Građanin se registrira na portalu (email + lozinka)
+2. Verificira email
+3. Vidi poruku: "Za korištenje portala morate podnijeti zahtjev za elektronsku komunikaciju"
+4. Podnosi posebnu vrstu zahtjeva "Zahtjev za elektronsku komunikaciju" — osnovni podaci (ime, prezime, OIB, adresa)
+5. Službenik u back-officeu vidi zahtjev, provjerava u SEUP-u postoji li subjekt s tim OIB-om:
+   - Ako postoji → uzima SubjektID
+   - Ako ne postoji → ručno kreira subjekta u SEUP-u → dobiva SubjektID
+6. Službenik u portalu klikne "Odobri e-komunikaciju" i unese SubjektID
+7. Portal sprema `seup_subject_id` na `users` tablici
+8. Od sad građanin može podnositi ostale zahtjeve
+
+**Implementacija:**
+- "Zahtjev za elektronsku komunikaciju" je obična vrsta zahtjeva koju admin kreira kroz admin modul, ali s oznakom `is_ecommunication_request bool` na `request_types` tablici
+- Accept flow za ovu vrstu NE piše u tblAkti — umjesto toga ažurira `users.seup_subject_id`
+- Dok građanin nema `seup_subject_id`, gumb "Započni zahtjev" na svim ostalim vrstama je disabled s porukom "Prvo podnesite zahtjev za elektronsku komunikaciju"
+- Ekran 2 (preflight) za e-komunikaciju nema preflight — odmah forma (jer je preduvjet za sve ostalo)
 
 **Ekran 1 — Odabir vrste zahtjeva**
 - URL: `/requests/new`
@@ -1424,24 +1490,45 @@ Apstrahirano iza interface-a. Implementer može razvijati sve ostalo. Spaja se k
 
 ### 21.1 tblAkti / tblPRBiljeska / tblDatoteke INSERT stupci
 
-**Što znamo:**
-- `tblAkti` — primarni ključ `AktID` (long/bigint), pretpostavka: IDENTITY
-- `tblPRBiljeska` — podaci o subjektu i načinu podneska, FK `AktID`
-- `tblDatoteke` — fajlovi, FK `AktID`, pamti putanju (ne blob)
+**RIJEŠENO u v1.3.** Svi stupci su poznati. Vidi sekciju 8.3 za puni tok s točnim stupcima.
 
-**Što čekamo:**
-- Točan popis obveznih stupaca za svaku tablicu
-- `sp_help tblAkti`, `sp_help tblPRBiljeska`, `sp_help tblDatoteke` izlaz iz SSMS-a
-- Generira li se `AktID` IDENTITY-jem ili ga mi šaljemo
-- Postoji li polje "vrsta podneska" / "kanal" gdje treba staviti vrijednost koja označava "portal"
-- Format putanje u `tblDatoteke` (apsolutna vs relativna)
-- Postoji li redni broj privitka
+**Sažetak stupaca:**
 
-**Akcija prije produkcije (nepregovorljivo, sekcija 9.3 sloj 4):**
-- Dodati stupac `PortalRequestID uniqueidentifier NULL` na `tblAkti`
-- Filtered unique index: `CREATE UNIQUE INDEX UX_tblAkti_PortalRequestID ON tblAkti(PortalRequestID) WHERE PortalRequestID IS NOT NULL`
+```
+tblAkti:
+  AktID (long)              — app generira: MAX(AktID) + 1
+  VrstaID (long)            — 0 = ulazni dokument (podnesak)
+  Opis (string 255)         — naziv vrste + referentni broj
+  DatumKreiranjaAkta (date) — danas
+  DatumPrimitka (date)      — danas
+  PredmetID (long)          — 0 (uvijek kod primitka)
+  StvarateljID (long)       — 0 (uvijek kod primitka)
+  IDSesije (long)           — NULL za sad (riješit će se s launcher integracijom)
+  PortalRequestID (guid)    — request.id, za idempotenciju (stupac se dodaje ručno)
 
-**Privremeno:** `LocalDbAktWriter.WriteAktAsync` baca `NotImplementedException`. Mock u testovima prolazi.
+tblPRBiljeska:
+  BiljeskaID (long)         — app generira: MAX(BiljeskaID) + 1
+  Datum (date)              — danas
+  SubjektID (long)          — iz users.seup_subject_id
+  NacinBiljeske (long)      — 3000 (fiksno za portal podnesak)
+  Opis (string 255)         — opis zahtjeva
+  AktID (long)              — FK na tblAkti
+  IDSesije (long)           — NULL za sad
+
+tblDatoteke:
+  DatotekaID (long)         — app generira: MAX(DatotekaID) + 1
+  Datoteka (string 255)     — opis datoteke (label)
+  DatumDatoteke (date)      — danas
+  LokacijaDatoteke (str 255)— putanja iz IArchiveFileCopier
+  NazivDatoteke (string 255)— originalno ime fajla
+  AktID (long)              — FK na tblAkti
+  RbrDatoteke (long)        — redni broj privitka (1, 2, 3...)
+  IDSesije (long)           — NULL za sad
+```
+
+**Preostali TODO za ovu sekciju:**
+- Točan format putanje u `LokacijaDatoteke` (apsolutna vs relativna) — čeka dogovor
+- `PortalRequestID` stupac mora biti dodan ručno na tblAkti prije produkcije (vidi sekcija 9.3 sloj 4)
 
 ### 21.2 Putanja digitalne arhive (intake folder)
 
@@ -1466,15 +1553,19 @@ Apstrahirano iza interface-a. Implementer može razvijati sve ostalo. Spaja se k
 
 ### 21.4 Email provider
 
-**Što čekamo:** odluka SMTP JLS-a vs vanjski (Mailgun/SendGrid/Postmark).
+**Odlučeno:** Resend (resend.com). Besplatan tier do 3000 emailova/mjesec, dovoljno za pilot.
 
-**Privremeno:** `SmtpEmailSender` (MailKit) radi s bilo kojim SMTP-om. Dev koristi Mailhog. Connection string mijenja se u `appsettings`, kod ne.
+**Implementacija:** `ResendEmailSender` u `Portal.Infrastructure.Email`, implementira isti `IEmailSender` interface. NuGet paket: `Resend.net`. API ključ u environment varijabli `RESEND_API_KEY`.
+
+**Dev:** Mailhog ostaje za lokalni razvoj (docker-compose). `NullEmailSender` za testove.
 
 ### 21.5 Deployment target pilota
 
-**Što čekamo:** on-prem kod JLS-a, HR cloud, ili Azure/AWS?
+**Odlučeno:** Contabo VPS (Cloud VPS 20 NVMe, 12 GB RAM, 6 CPU, 100 GB NVMe). Multi-tenant spreman — isti server služi više JLS-ova kad dođe do toga.
 
-**Privremeno:** Dockerfile-ovi cloud-agnostic. `docker-compose.yml` za dev.
+**Plan:** Docker Compose na Contabu za pilot. Migracija na ozbiljniji hosting (Hetzner Cloud, Azure) kad pilot preraste u produkciju s više JLS-ova. Dockerfile-ovi su cloud-agnostic — selidba traje sat, ne tjedan.
+
+**Uvjet za produkciju:** VPS mora imati mrežni pristup do SEUP SQL Servera u JLS-u (VPN ili whitelist IP-a).
 
 ### 21.6 DPIA (Data Protection Impact Assessment)
 
@@ -1535,6 +1626,18 @@ Apstrahirano iza interface-a. Implementer može razvijati sve ostalo. Spaja se k
 
 ---
 
-**Kraj CLAUDE.md v1.2.**
+**Kraj CLAUDE.md v1.3.**
 
-Sljedeća verzija (v1.3) stiže kad se zatvore TODO stavke iz sekcije 21.
+Promjene u v1.3:
+- Sekcija 1: dodano da je SEUP naš vlastiti proizvod
+- Sekcija 6.1: `seup_subject_id` na `users` tablici
+- Sekcija 6.2: `is_ecommunication_request` na `request_types` tablici
+- Sekcija 8.3: kompletni stupci za tblAkti/tblPRBiljeska/tblDatoteke, AktID logika (MAX+1), IDSesije=NULL
+- Sekcija 8.3: PortalRequestID startup check s graceful degradation
+- Sekcija 8.4: Resend kao email adapter za produkciju
+- Sekcija 12.2: "Zahtjev za e-komunikaciju" kao nulti korak (SubjektID flow)
+- Sekcija 21.1: RIJEŠENO — svi SEUP stupci poznati
+- Sekcija 21.4: RIJEŠENO — Resend odabran
+- Sekcija 21.5: RIJEŠENO — Contabo VPS za pilot
+
+Sljedeća verzija (v1.4) stiže kad se zatvore preostale TODO stavke (putanja arhive, HUB-3, DPIA).
