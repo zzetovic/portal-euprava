@@ -79,12 +79,12 @@
 - [ ] Razor email templates skeleton (zahtjev podnesen, zaprimljen, odbijen, draft istječe)
 
 ## Background workeri (sekcija 15)
-- [ ] DraftCleanupWorker — 24h noću: briše draftove s expires_at<=now, upozorenja 7 dana prije isteka
-- [ ] FinanceCacheCleanup — 1h, briše expired finance_snapshots
-- [ ] RefreshTokenCleanup — 24h, briše expired refresh tokene
-- [ ] Config flag za enable/disable svakog workera
+- [x] DraftCleanupWorker — 24h noću: briše draftove s expires_at<=now, upozorenja 7 dana prije isteka
+- [x] FinanceCacheCleanup — 1h, briše expired finance_snapshots
+- [x] RefreshTokenCleanup — 24h, briše expired refresh tokene
+- [x] Config flag za enable/disable svakog workera
 
 ## Health & meta
-- [ ] GET /health/live — always 200
-- [ ] GET /health/ready — provjera PostgreSQL konekcije
-- [ ] GET /meta/tenant — tenant info za frontend (name, branding, settings)
+- [x] GET /health/live — always 200
+- [x] GET /health/ready — provjera PostgreSQL konekcije
+- [x] GET /meta/tenant — tenant info za frontend (name, branding, settings)

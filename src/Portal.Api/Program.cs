@@ -42,6 +42,9 @@ builder.Services.AddScoped<ITenantProvider, HttpTenantProvider>();
 builder.Services.AddHostedService<OutboxDispatcher>();
 builder.Services.AddHostedService<EmailDispatcher>();
 builder.Services.AddHostedService<OutboxStaleAlerter>();
+builder.Services.AddHostedService<DraftCleanupWorker>();
+builder.Services.AddHostedService<FinanceCacheCleanup>();
+builder.Services.AddHostedService<RefreshTokenCleanup>();
 
 // CORS
 builder.Services.AddCors(options =>
@@ -86,5 +89,6 @@ app.MapAdminRequestTypeEndpoints();
 app.MapCitizenRequestEndpoints();
 app.MapOfficerEndpoints();
 app.MapNotificationEndpoints();
+app.MapMetaEndpoints();
 
 app.Run();
