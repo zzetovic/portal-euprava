@@ -76,5 +76,6 @@ app.UseSerilogRequestLogging();
 // Endpoints
 app.MapHealthEndpoints();
 app.MapAuthEndpoints();
+app.MapAdminRequestTypeEndpoints();
 
 app.Run();

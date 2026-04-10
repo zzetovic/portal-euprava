@@ -22,17 +22,17 @@
 - [x] Integration test: pokretanje dva puta uzastopno = isti rezultat
 
 ## Admin — vrste zahtjeva (sekcija 11 + API 10.5)
-- [ ] GET /admin/request-types — lista s filterima (active, archived, search)
-- [ ] POST /admin/request-types — kreiranje nove vrste (basic + fields + attachments, version=1)
-- [ ] GET /admin/request-types/{id} — detalj s poljima i privitcima
-- [ ] PUT /admin/request-types/{id} — update s detekcijom strukturne promjene i version bump
-- [ ] DELETE /admin/request-types/{id} — soft delete (is_archived=true), blokira ako ima aktivne zahtjeve
-- [ ] POST /admin/request-types/{id}/activate
-- [ ] POST /admin/request-types/{id}/deactivate
-- [ ] POST /admin/request-types/{id}/duplicate — kopija s "Kopija od X", Neaktivno, version=1
-- [ ] GET /admin/request-types/{id}/usage — broj draft/submitted/received/rejected zahtjeva
-- [ ] FluentValidation za sve DTOeve
-- [ ] Audit log za sve admin akcije (created, updated, version_bumped, activated, deactivated, archived, duplicated)
+- [x] GET /admin/request-types — lista s filterima (active, archived, search)
+- [x] POST /admin/request-types — kreiranje nove vrste (basic + fields + attachments, version=1)
+- [x] GET /admin/request-types/{id} — detalj s poljima i privitcima
+- [x] PUT /admin/request-types/{id} — update s detekcijom strukturne promjene i version bump
+- [x] DELETE /admin/request-types/{id} — soft delete (is_archived=true), blokira ako ima aktivne zahtjeve
+- [x] POST /admin/request-types/{id}/activate
+- [x] POST /admin/request-types/{id}/deactivate
+- [x] POST /admin/request-types/{id}/duplicate — kopija s "Kopija od X", Neaktivno, version=1
+- [x] GET /admin/request-types/{id}/usage — broj draft/submitted/received/rejected zahtjeva
+- [x] FluentValidation za sve DTOeve
+- [x] Audit log za sve admin akcije (created, updated, version_bumped, activated, deactivated, archived, duplicated)
 
 ## Građanin — zahtjevi (sekcija 12 + API 10.3)
 - [ ] GET /request-types — samo aktivni za tenant, i18n-aware
