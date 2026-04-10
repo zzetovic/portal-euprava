@@ -30,14 +30,14 @@
 - [x] Lazy loading feature modula
 
 ## DynamicFormRenderer (KLJUČNA KOMPONENTA — shared)
-- [ ] mode="edit" — react-hook-form + zod dinamička schema iz form_schema_snapshot
-- [ ] mode="readonly" — isti layout ali svi inputi disabled/read-only, za officer i citizen detalj
-- [ ] mode="preview" — za admin preview tab, submit/upload disabled
-- [ ] Polje rendereri po field_type: text, textarea, number, date, select, checkbox, oib (s validacijom checksum), iban (s validacijom), email, phone
-- [ ] Validacija inline na blur: format, min/max, regex, OIB checksum, IBAN checksum
-- [ ] Validacija na submit: sva obvezna polja popunjena, scroll na prvi error + toast
-- [ ] i18n-aware labele i help text (hr/en iz field definicije)
-- [ ] Generous spacing, label iznad, help text ispod, error ispod help texta crvenim
+- [x] mode="edit" — react-hook-form + zod dinamička schema iz form_schema_snapshot
+- [x] mode="readonly" — isti layout ali svi inputi disabled/read-only, za officer i citizen detalj
+- [x] mode="preview" — za admin preview tab, submit/upload disabled
+- [x] Polje rendereri po field_type: text, textarea, number, date, select, checkbox, oib (s validacijom checksum), iban (s validacijom), email, phone
+- [x] Validacija inline na blur: format, min/max, regex, OIB checksum, IBAN checksum
+- [x] Validacija na submit: sva obvezna polja popunjena, scroll na prvi error + toast
+- [x] i18n-aware labele i help text (hr/en iz field definicije)
+- [x] Generous spacing, label iznad, help text ispod, error ispod help texta crvenim
 
 ## Admin modul (sekcija 11)
 - [ ] AdminLayout — sidebar (Vrste zahtjeva, Korisnici, Audit log), top bar
