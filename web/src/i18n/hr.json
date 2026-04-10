@@ -14,20 +14,404 @@
     "yes": "Da",
     "no": "Ne",
     "error": "Greška",
-    "success": "Uspjeh"
+    "success": "Uspjeh",
+    "required": "Obvezno polje",
+    "noResults": "Nema rezultata",
+    "actions": "Akcije",
+    "all": "Svi",
+    "active": "Aktivno",
+    "inactive": "Neaktivno",
+    "archived": "Arhivirano",
+    "status": "Status",
+    "date": "Datum",
+    "name": "Naziv",
+    "description": "Opis",
+    "code": "Kod",
+    "type": "Tip",
+    "details": "Detalji",
+    "download": "Preuzmi",
+    "preview": "Pregled",
+    "retry": "Pokušaj ponovno",
+    "refresh": "Osvježi",
+    "copyToClipboard": "Kopiraj",
+    "copied": "Kopirano!",
+    "savedAt": "Spremljeno u {{time}}",
+    "saving": "Spremanje...",
+    "processingDays": "{{count}} radnih dana"
+  },
+  "status": {
+    "draft": "Nacrt",
+    "submitted": "Podneseno",
+    "processing_registry": "U obradi",
+    "received_in_registry": "Zaprimljeno",
+    "rejected_by_officer": "Odbijeno"
   },
   "auth": {
     "login": "Prijava",
+    "loginTitle": "Prijavite se u portal",
+    "loginButton": "Prijavi se",
     "logout": "Odjava",
     "register": "Registracija",
+    "registerTitle": "Kreirajte korisnički račun",
+    "registerButton": "Registriraj se",
     "email": "Email adresa",
     "password": "Lozinka",
-    "forgotPassword": "Zaboravljena lozinka?"
+    "passwordConfirm": "Potvrda lozinke",
+    "firstName": "Ime",
+    "lastName": "Prezime",
+    "oib": "OIB",
+    "oibOptional": "OIB (opcionalno)",
+    "phone": "Telefon",
+    "phoneOptional": "Telefon (opcionalno)",
+    "forgotPassword": "Zaboravljena lozinka?",
+    "forgotPasswordTitle": "Zaboravljena lozinka",
+    "forgotPasswordDescription": "Unesite svoju email adresu i poslat ćemo vam upute za resetiranje lozinke.",
+    "forgotPasswordButton": "Pošalji upute",
+    "forgotPasswordSuccess": "Ako račun s tom email adresom postoji, poslali smo vam upute za resetiranje lozinke.",
+    "resetPassword": "Resetiraj lozinku",
+    "resetPasswordTitle": "Nova lozinka",
+    "resetPasswordDescription": "Unesite novu lozinku za svoj račun.",
+    "resetPasswordButton": "Postavi novu lozinku",
+    "resetPasswordSuccess": "Lozinka je uspješno promijenjena. Možete se prijaviti.",
+    "newPassword": "Nova lozinka",
+    "newPasswordConfirm": "Potvrda nove lozinke",
+    "verifyEmail": "Verifikacija emaila",
+    "verifyEmailSuccess": "Email adresa je uspješno verificirana. Možete se prijaviti.",
+    "verifyEmailError": "Verifikacijski link je nevažeći ili je istekao.",
+    "verifyEmailLoading": "Verificiramo vašu email adresu...",
+    "mustChangePassword": "Promjena lozinke",
+    "mustChangePasswordDescription": "Morate promijeniti privremenu lozinku prije nastavka.",
+    "currentPassword": "Trenutna lozinka",
+    "noAccount": "Nemate račun?",
+    "hasAccount": "Već imate račun?",
+    "invalidCredentials": "Neispravna email adresa ili lozinka.",
+    "emailNotVerified": "Email adresa nije verificirana. Provjerite inbox.",
+    "passwordMismatch": "Lozinke se ne podudaraju.",
+    "passwordTooShort": "Lozinka mora imati najmanje 8 znakova.",
+    "invalidOib": "Neispravan OIB.",
+    "emailAlreadyExists": "Korisnik s ovom email adresom već postoji.",
+    "resendVerification": "Pošalji ponovno verifikacijski email"
   },
   "nav": {
     "home": "Početna",
     "requests": "Moji zahtjevi",
     "finance": "Financije",
-    "notifications": "Obavijesti"
+    "notifications": "Obavijesti",
+    "office": "Ured",
+    "inbox": "Pristiglo",
+    "admin": "Administracija",
+    "requestTypes": "Vrste zahtjeva",
+    "users": "Korisnici",
+    "auditLog": "Dnevnik aktivnosti",
+    "profile": "Profil",
+    "newRequest": "Novi zahtjev"
+  },
+  "dashboard": {
+    "title": "Dobrodošli",
+    "myFinance": "Moje financije",
+    "myFinanceDescription": "Pregledajte otvorene stavke i generirajte uplatnice.",
+    "myRequests": "Moji zahtjevi",
+    "myRequestsDescription": "Pregledajte status vaših zahtjeva.",
+    "newRequest": "Novi zahtjev",
+    "newRequestDescription": "Podnesite novi zahtjev prema JLS-u."
+  },
+  "requests": {
+    "title": "Moji zahtjevi",
+    "newRequest": "Novi zahtjev",
+    "selectType": "Odaberite vrstu zahtjeva",
+    "searchTypes": "Pretraži vrste zahtjeva...",
+    "preflight": {
+      "whatYouNeed": "Što ćete trebati",
+      "requiredFields": "Obvezna polja",
+      "requiredAttachments": "Obvezni privitci",
+      "optionalAttachments": "Opcionalni privitci",
+      "whatHappensNext": "Što se događa nakon podnošenja",
+      "processingTime": "Službena osoba pregledat će vaš zahtjev. Ovo obično traje {{days}} radnih dana.",
+      "startRequest": "Započni zahtjev",
+      "emailNotVerified": "Za podnošenje zahtjeva morate prvo verificirati email adresu.",
+      "format": "Format",
+      "maxSize": "Maksimalna veličina"
+    },
+    "form": {
+      "autoSave": "Automatsko spremanje",
+      "saveAndContinue": "Spremi i nastavi kasnije",
+      "attachments": "Privitci",
+      "uploadFile": "Odaberite datoteku",
+      "replaceFile": "Zamijeni",
+      "removeFile": "Ukloni",
+      "fileTooBig": "Datoteka je prevelika. Maksimalna veličina: {{size}}.",
+      "invalidFileType": "Nepodržani format datoteke. Dozvoljeni: {{types}}.",
+      "uploading": "Učitavanje...",
+      "uploadFailed": "Učitavanje nije uspjelo. Pokušajte ponovno."
+    },
+    "review": {
+      "title": "Potvrda prije slanja",
+      "confirmCheckbox": "Potvrđujem da su navedeni podaci istiniti i točni.",
+      "submitWarning": "Nakon slanja zahtjev više ne možete uređivati.",
+      "submitRequest": "Pošalji zahtjev"
+    },
+    "submitted": {
+      "title": "Zahtjev je poslan!",
+      "referenceNumber": "Vaš referentni broj",
+      "emailSent": "Poslali smo vam potvrdu na email.",
+      "processingInfo": "Službena osoba pregledat će vaš zahtjev. Ovo obično traje 1–{{days}} radnih dana.",
+      "viewMyRequests": "Pregled mojih zahtjeva",
+      "goHome": "Početna"
+    },
+    "detail": {
+      "referenceNumber": "Referentni broj",
+      "aktId": "Broj akta",
+      "submittedAt": "Podneseno",
+      "reviewedAt": "Pregledano",
+      "draftBanner": "Ovo je nacrt. Možete ga nastaviti uređivati ili obrisati.",
+      "continueDraft": "Nastavi uređivanje",
+      "deleteDraft": "Obriši nacrt",
+      "submittedBanner": "Vaš zahtjev je u obradi.",
+      "receivedBanner": "Vaš zahtjev je zaprimljen u pisarnicu.",
+      "receivedInfo": "Daljnji tijek vodi se u sustavu uredskog poslovanja.",
+      "rejectedBanner": "Vaš zahtjev je odbijen.",
+      "rejectionReason": "Razlog odbijanja",
+      "newRequestSuggestion": "Možete podnijeti novi zahtjev.",
+      "history": "Povijest statusa",
+      "attachments": "Privitci",
+      "formData": "Podaci zahtjeva"
+    },
+    "filter": {
+      "all": "Svi",
+      "drafts": "Nacrti",
+      "inProgress": "U obradi",
+      "received": "Zaprimljeni",
+      "rejected": "Odbijeni"
+    },
+    "empty": {
+      "title": "Nemate zahtjeva",
+      "description": "Podnesite novi zahtjev prema jedinici lokalne samouprave.",
+      "cta": "Novi zahtjev"
+    },
+    "editedInAnotherTab": "Zahtjev je uređen u drugom tabu. Osvježite stranicu.",
+    "dailyLimitReached": "Dosegnuli ste dnevni limit od 5 zahtjeva."
+  },
+  "office": {
+    "inbox": {
+      "title": "Pristiglo",
+      "tabs": {
+        "pending": "Na čekanju",
+        "received": "Zaprimljeni",
+        "rejected": "Odbijeni",
+        "all": "Svi"
+      },
+      "columns": {
+        "status": "Status",
+        "type": "Vrsta zahtjeva",
+        "applicant": "Podnositelj",
+        "oib": "OIB",
+        "referenceNumber": "Ref. broj",
+        "attachments": "Privitci",
+        "submittedAgo": "Podneseno"
+      },
+      "new": "Novo",
+      "viewed": "Pregledano",
+      "newRequestToast": "{{count}} novi zahtjev",
+      "refreshButton": "Osvježi",
+      "unreadCount": "{{count}} nepročitanih",
+      "empty": {
+        "title": "Nema zahtjeva",
+        "description": "Trenutno nema zahtjeva za pregled."
+      }
+    },
+    "detail": {
+      "title": "Pregled zahtjeva",
+      "applicantInfo": "Podnositelj",
+      "metadata": "Metapodaci",
+      "submittedAt": "Podneseno",
+      "viewedAt": "Prvo otvoreno",
+      "history": "Povijest statusa"
+    },
+    "accept": {
+      "button": "Zaprimi u pisarnicu",
+      "title": "Zaprimanje u pisarnicu",
+      "description": "Zahtjev će biti zaprimljen u SEUP kao novi akt. Akcija je nepovratna.",
+      "applicant": "Podnositelj",
+      "type": "Vrsta",
+      "confirm": "Zaprimi",
+      "processing": "Zapisivanje u SEUP...",
+      "successToast": "Zaprimljeno pod brojem akta {{aktId}}",
+      "asyncModal": "Zaprimanje u tijeku, možete nastaviti raditi.",
+      "asyncStatus": "U procesiranju",
+      "deadLetterBanner": "Zaprimanje nije uspjelo. Kontaktirajte administratora ili pokušajte ponovno.",
+      "retryButton": "Pokušaj ponovno"
+    },
+    "reject": {
+      "button": "Odbij",
+      "title": "Odbijanje zahtjeva",
+      "reasonLabel": "Razlog odbijanja",
+      "reasonPlaceholder": "Odaberite razlog...",
+      "internalNote": "Interna napomena (vidi samo JLS)",
+      "internalNoteRequired": "Interna napomena je obvezna za razlog \"Ostalo\".",
+      "warning": "Podnositelj će biti obaviješten emailom o odbijanju s navedenim razlogom.",
+      "confirm": "Odbij"
+    },
+    "rejectionReasons": {
+      "inappropriate_content": "Neprimjereni sadržaj",
+      "out_of_jurisdiction": "Nije u nadležnosti ove JLS",
+      "duplicate": "Ponavljajući zahtjev",
+      "not_serious": "Očito neozbiljan zahtjev",
+      "other": "Ostalo"
+    }
+  },
+  "admin": {
+    "requestTypes": {
+      "title": "Vrste zahtjeva",
+      "newType": "Nova vrsta zahtjeva",
+      "columns": {
+        "name": "Naziv",
+        "status": "Status",
+        "fields": "Polja",
+        "attachments": "Privitci",
+        "updatedAt": "Izmijenjeno",
+        "actions": "Akcije"
+      },
+      "filter": {
+        "active": "Aktivni",
+        "all": "Svi",
+        "archived": "Arhivirani"
+      },
+      "activate": "Aktiviraj",
+      "deactivate": "Deaktiviraj",
+      "duplicate": "Dupliciraj",
+      "archive": "Arhiviraj",
+      "edit": {
+        "title": "Uređivanje vrste zahtjeva",
+        "createTitle": "Nova vrsta zahtjeva",
+        "tabs": {
+          "basic": "Osnovno",
+          "fields": "Polja",
+          "attachments": "Privitci",
+          "preview": "Pregled"
+        },
+        "nameHr": "Naziv (hr)",
+        "nameEn": "Naziv (en)",
+        "code": "Interni kod",
+        "codeHelp": "Automatski generiran iz naziva. Možete promijeniti.",
+        "descriptionHr": "Opis (hr)",
+        "descriptionEn": "Opis (en)",
+        "isActive": "Aktivno",
+        "estimatedDays": "Procijenjeno trajanje obrade (dana)",
+        "estimatedDaysHelp": "Ostavite prazno za zadanu vrijednost tenanta ({{days}}).",
+        "sortOrder": "Redoslijed prikaza"
+      },
+      "fields": {
+        "title": "Polja forme",
+        "addField": "Dodaj polje",
+        "editField": "Uredi polje",
+        "fieldType": "Tip polja",
+        "fieldKey": "Interni ključ",
+        "labelHr": "Naziv (hr)",
+        "labelEn": "Naziv (en)",
+        "helpTextHr": "Pomoćni tekst (hr)",
+        "helpTextEn": "Pomoćni tekst (en)",
+        "isRequired": "Obvezno",
+        "advancedSettings": "Napredne postavke",
+        "minValue": "Minimalna vrijednost",
+        "maxValue": "Maksimalna vrijednost",
+        "regex": "Regularni izraz",
+        "options": "Opcije (za padajući izbornik)",
+        "addOption": "Dodaj opciju",
+        "optionValue": "Vrijednost",
+        "optionLabelHr": "Oznaka (hr)",
+        "optionLabelEn": "Oznaka (en)",
+        "fieldTypes": {
+          "text": "Tekst",
+          "textarea": "Višelinijski tekst",
+          "number": "Broj",
+          "date": "Datum",
+          "select": "Padajući izbornik",
+          "checkbox": "Potvrdni okvir",
+          "oib": "OIB",
+          "iban": "IBAN",
+          "email": "Email",
+          "phone": "Telefon"
+        },
+        "empty": "Još nema polja. Dodajte prvo polje forme.",
+        "dragHint": "Povucite za promjenu redoslijeda"
+      },
+      "attachments": {
+        "title": "Privitci",
+        "addAttachment": "Dodaj privitak",
+        "editAttachment": "Uredi privitak",
+        "attachmentKey": "Interni ključ",
+        "labelHr": "Naziv (hr)",
+        "labelEn": "Naziv (en)",
+        "descriptionHr": "Opis (hr)",
+        "descriptionEn": "Opis (en)",
+        "isRequired": "Obvezan",
+        "maxSize": "Maksimalna veličina",
+        "allowedMimeTypes": "Dozvoljeni formati",
+        "sizeOptions": {
+          "2mb": "2 MB",
+          "5mb": "5 MB",
+          "10mb": "10 MB",
+          "25mb": "25 MB"
+        },
+        "mimeTypes": {
+          "pdf": "PDF",
+          "images": "Slike (JPG, PNG)",
+          "documents": "Dokumenti (PDF, DOC, DOCX)",
+          "all": "Svi formati"
+        },
+        "empty": "Još nema privitaka. Dodajte prvi privitak.",
+        "dragHint": "Povucite za promjenu redoslijeda"
+      },
+      "version": {
+        "bumpWarning": "Ova vrsta ima {{count}} podnesenih zahtjeva. Vaše promjene stvaraju novu verziju obrasca (v{{version}}). Postojeći zahtjevi ostaju pod prethodnom verzijom. Svi nacrti pod prethodnom verzijom bit će zaključani 30 dana, nakon čega se brišu.",
+        "confirm": "Potvrdi promjenu verzije"
+      },
+      "deleteWarning": "Jeste li sigurni da želite arhivirati ovu vrstu zahtjeva?",
+      "deleteBlocked": "Ne možete arhivirati vrstu zahtjeva koja ima aktivne nacrte ili podnesene zahtjeve. Deaktivirajte je umjesto toga.",
+      "duplicateConfirm": "Kreirat će se kopija vrste zahtjeva \"{{name}}\" u neaktivnom statusu.",
+      "usage": {
+        "title": "Korištenje",
+        "drafts": "Nacrti",
+        "submitted": "Podneseni",
+        "received": "Zaprimljeni",
+        "rejected": "Odbijeni",
+        "total": "Ukupno"
+      }
+    },
+    "users": {
+      "title": "Korisnici",
+      "newOfficer": "Novi službenik",
+      "columns": {
+        "name": "Ime i prezime",
+        "email": "Email",
+        "type": "Uloga",
+        "status": "Status",
+        "lastLogin": "Zadnja prijava"
+      },
+      "types": {
+        "citizen": "Građanin",
+        "jls_officer": "Službenik",
+        "jls_admin": "Administrator"
+      }
+    }
+  },
+  "notifications": {
+    "title": "Obavijesti",
+    "markAllRead": "Označi sve pročitanim",
+    "empty": {
+      "title": "Nema obavijesti",
+      "description": "Nemate novih obavijesti."
+    }
+  },
+  "validation": {
+    "required": "Polje \"{{field}}\" je obvezno.",
+    "email": "Unesite valjanu email adresu.",
+    "minLength": "Minimalno {{min}} znakova.",
+    "maxLength": "Maksimalno {{max}} znakova.",
+    "min": "Minimalna vrijednost je {{min}}.",
+    "max": "Maksimalna vrijednost je {{max}}.",
+    "pattern": "Neispravan format.",
+    "oib": "Neispravan OIB (mora biti 11 znamenki s ispravnom kontrolnom znamenkom).",
+    "iban": "Neispravan IBAN."
   }
 }

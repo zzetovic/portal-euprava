@@ -1,15 +1,15 @@
 # Frontend zadaci — Sprint 1
 
 ## Shared Design System (graditi PRVO, koristi se svugdje)
-- [ ] Theme CSS varijable (prema playbook UI sustav sekciji): primary, secondary, accent, background, text, error, success + dark/light
-- [ ] Button komponenta — primary, secondary, danger, disabled varijante, min 48px na mobitelu
-- [ ] Input komponenta — text, email, number, textarea, select, date, checkbox. Label iznad, error state, disabled state, help text ispod
-- [ ] Modal komponenta — otvara se PRI VRHU ekrana (ne centar!), overlay s klik-za-zatvori, X gumb, ESC zatvara, max 90vh, okvir u accent boji
-- [ ] Toast/Notification komponenta — success/error/warning, gornji desni kut desktop, vrh ekrana mobile, auto-dismiss 5s
-- [ ] StatusBadge komponenta — draft=siva, submitted=plava, received_in_registry=zelena, rejected_by_officer=burgundy
-- [ ] LoadingSkeleton komponenta — pulsing gray rectangles umjesto spinnera
-- [ ] EmptyState komponenta — ilustracija + poruka + CTA gumb
-- [ ] Viewport meta tag + mobile-first CSS reset (box-sizing, overflow-x hidden, img max-width)
+- [x] Theme CSS varijable (prema playbook UI sustav sekciji): primary, secondary, accent, background, text, error, success + dark/light
+- [x] Button komponenta — primary, secondary, danger, disabled varijante, min 48px na mobitelu
+- [x] Input komponenta — text, email, number, textarea, select, date, checkbox. Label iznad, error state, disabled state, help text ispod
+- [x] Modal komponenta — otvara se PRI VRHU ekrana (ne centar!), overlay s klik-za-zatvori, X gumb, ESC zatvara, max 90vh, okvir u accent boji
+- [x] Toast/Notification komponenta — success/error/warning, gornji desni kut desktop, vrh ekrana mobile, auto-dismiss 5s
+- [x] StatusBadge komponenta — draft=siva, submitted=plava, received_in_registry=zelena, rejected_by_officer=burgundy
+- [x] LoadingSkeleton komponenta — pulsing gray rectangles umjesto spinnera
+- [x] EmptyState komponenta — ilustracija + poruka + CTA gumb
+- [x] Viewport meta tag + mobile-first CSS reset (box-sizing, overflow-x hidden, img max-width)
 
 ## Auth stranice
 - [ ] Login stranica — email + password, error handling, redirect na dashboard

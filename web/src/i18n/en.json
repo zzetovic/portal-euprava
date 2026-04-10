@@ -14,20 +14,404 @@
     "yes": "Yes",
     "no": "No",
     "error": "Error",
-    "success": "Success"
+    "success": "Success",
+    "required": "Required field",
+    "noResults": "No results",
+    "actions": "Actions",
+    "all": "All",
+    "active": "Active",
+    "inactive": "Inactive",
+    "archived": "Archived",
+    "status": "Status",
+    "date": "Date",
+    "name": "Name",
+    "description": "Description",
+    "code": "Code",
+    "type": "Type",
+    "details": "Details",
+    "download": "Download",
+    "preview": "Preview",
+    "retry": "Retry",
+    "refresh": "Refresh",
+    "copyToClipboard": "Copy",
+    "copied": "Copied!",
+    "savedAt": "Saved at {{time}}",
+    "saving": "Saving...",
+    "processingDays": "{{count}} business days"
+  },
+  "status": {
+    "draft": "Draft",
+    "submitted": "Submitted",
+    "processing_registry": "Processing",
+    "received_in_registry": "Received",
+    "rejected_by_officer": "Rejected"
   },
   "auth": {
     "login": "Login",
+    "loginTitle": "Sign in to portal",
+    "loginButton": "Sign in",
     "logout": "Logout",
     "register": "Register",
+    "registerTitle": "Create an account",
+    "registerButton": "Register",
     "email": "Email address",
     "password": "Password",
-    "forgotPassword": "Forgot password?"
+    "passwordConfirm": "Confirm password",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "oib": "OIB",
+    "oibOptional": "OIB (optional)",
+    "phone": "Phone",
+    "phoneOptional": "Phone (optional)",
+    "forgotPassword": "Forgot password?",
+    "forgotPasswordTitle": "Forgot password",
+    "forgotPasswordDescription": "Enter your email address and we'll send you password reset instructions.",
+    "forgotPasswordButton": "Send instructions",
+    "forgotPasswordSuccess": "If an account with that email exists, we've sent password reset instructions.",
+    "resetPassword": "Reset password",
+    "resetPasswordTitle": "New password",
+    "resetPasswordDescription": "Enter a new password for your account.",
+    "resetPasswordButton": "Set new password",
+    "resetPasswordSuccess": "Password changed successfully. You can now sign in.",
+    "newPassword": "New password",
+    "newPasswordConfirm": "Confirm new password",
+    "verifyEmail": "Email verification",
+    "verifyEmailSuccess": "Email address verified successfully. You can now sign in.",
+    "verifyEmailError": "Verification link is invalid or expired.",
+    "verifyEmailLoading": "Verifying your email address...",
+    "mustChangePassword": "Change password",
+    "mustChangePasswordDescription": "You must change your temporary password before continuing.",
+    "currentPassword": "Current password",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "invalidCredentials": "Invalid email address or password.",
+    "emailNotVerified": "Email address not verified. Check your inbox.",
+    "passwordMismatch": "Passwords do not match.",
+    "passwordTooShort": "Password must be at least 8 characters.",
+    "invalidOib": "Invalid OIB.",
+    "emailAlreadyExists": "A user with this email address already exists.",
+    "resendVerification": "Resend verification email"
   },
   "nav": {
     "home": "Home",
     "requests": "My requests",
     "finance": "Finance",
-    "notifications": "Notifications"
+    "notifications": "Notifications",
+    "office": "Office",
+    "inbox": "Inbox",
+    "admin": "Administration",
+    "requestTypes": "Request types",
+    "users": "Users",
+    "auditLog": "Audit log",
+    "profile": "Profile",
+    "newRequest": "New request"
+  },
+  "dashboard": {
+    "title": "Welcome",
+    "myFinance": "My finance",
+    "myFinanceDescription": "View open items and generate payment slips.",
+    "myRequests": "My requests",
+    "myRequestsDescription": "View the status of your requests.",
+    "newRequest": "New request",
+    "newRequestDescription": "Submit a new request to the local government."
+  },
+  "requests": {
+    "title": "My requests",
+    "newRequest": "New request",
+    "selectType": "Select request type",
+    "searchTypes": "Search request types...",
+    "preflight": {
+      "whatYouNeed": "What you'll need",
+      "requiredFields": "Required fields",
+      "requiredAttachments": "Required attachments",
+      "optionalAttachments": "Optional attachments",
+      "whatHappensNext": "What happens after submission",
+      "processingTime": "An official will review your request. This usually takes {{days}} business days.",
+      "startRequest": "Start request",
+      "emailNotVerified": "You must verify your email address before submitting a request.",
+      "format": "Format",
+      "maxSize": "Maximum size"
+    },
+    "form": {
+      "autoSave": "Auto-save",
+      "saveAndContinue": "Save and continue later",
+      "attachments": "Attachments",
+      "uploadFile": "Choose file",
+      "replaceFile": "Replace",
+      "removeFile": "Remove",
+      "fileTooBig": "File is too large. Maximum size: {{size}}.",
+      "invalidFileType": "Unsupported file type. Allowed: {{types}}.",
+      "uploading": "Uploading...",
+      "uploadFailed": "Upload failed. Please try again."
+    },
+    "review": {
+      "title": "Review before submission",
+      "confirmCheckbox": "I confirm that the provided information is true and accurate.",
+      "submitWarning": "After submission, you will not be able to edit the request.",
+      "submitRequest": "Submit request"
+    },
+    "submitted": {
+      "title": "Request submitted!",
+      "referenceNumber": "Your reference number",
+      "emailSent": "We've sent a confirmation to your email.",
+      "processingInfo": "An official will review your request. This usually takes 1–{{days}} business days.",
+      "viewMyRequests": "View my requests",
+      "goHome": "Home"
+    },
+    "detail": {
+      "referenceNumber": "Reference number",
+      "aktId": "Act number",
+      "submittedAt": "Submitted",
+      "reviewedAt": "Reviewed",
+      "draftBanner": "This is a draft. You can continue editing or delete it.",
+      "continueDraft": "Continue editing",
+      "deleteDraft": "Delete draft",
+      "submittedBanner": "Your request is being processed.",
+      "receivedBanner": "Your request has been received in the registry.",
+      "receivedInfo": "Further processing is handled in the office administration system.",
+      "rejectedBanner": "Your request has been rejected.",
+      "rejectionReason": "Rejection reason",
+      "newRequestSuggestion": "You can submit a new request.",
+      "history": "Status history",
+      "attachments": "Attachments",
+      "formData": "Request data"
+    },
+    "filter": {
+      "all": "All",
+      "drafts": "Drafts",
+      "inProgress": "In progress",
+      "received": "Received",
+      "rejected": "Rejected"
+    },
+    "empty": {
+      "title": "No requests",
+      "description": "Submit a new request to the local government.",
+      "cta": "New request"
+    },
+    "editedInAnotherTab": "Request was edited in another tab. Please refresh.",
+    "dailyLimitReached": "You've reached the daily limit of 5 requests."
+  },
+  "office": {
+    "inbox": {
+      "title": "Inbox",
+      "tabs": {
+        "pending": "Pending",
+        "received": "Received",
+        "rejected": "Rejected",
+        "all": "All"
+      },
+      "columns": {
+        "status": "Status",
+        "type": "Request type",
+        "applicant": "Applicant",
+        "oib": "OIB",
+        "referenceNumber": "Ref. number",
+        "attachments": "Attachments",
+        "submittedAgo": "Submitted"
+      },
+      "new": "New",
+      "viewed": "Viewed",
+      "newRequestToast": "{{count}} new request(s)",
+      "refreshButton": "Refresh",
+      "unreadCount": "{{count}} unread",
+      "empty": {
+        "title": "No requests",
+        "description": "There are currently no requests to review."
+      }
+    },
+    "detail": {
+      "title": "Request review",
+      "applicantInfo": "Applicant",
+      "metadata": "Metadata",
+      "submittedAt": "Submitted",
+      "viewedAt": "First opened",
+      "history": "Status history"
+    },
+    "accept": {
+      "button": "Accept to registry",
+      "title": "Accept to registry",
+      "description": "The request will be registered in SEUP as a new act. This action is irreversible.",
+      "applicant": "Applicant",
+      "type": "Type",
+      "confirm": "Accept",
+      "processing": "Writing to SEUP...",
+      "successToast": "Accepted under act number {{aktId}}",
+      "asyncModal": "Registration in progress, you can continue working.",
+      "asyncStatus": "Processing",
+      "deadLetterBanner": "Registration failed. Contact the administrator or try again.",
+      "retryButton": "Try again"
+    },
+    "reject": {
+      "button": "Reject",
+      "title": "Reject request",
+      "reasonLabel": "Rejection reason",
+      "reasonPlaceholder": "Select reason...",
+      "internalNote": "Internal note (visible to staff only)",
+      "internalNoteRequired": "Internal note is required for reason \"Other\".",
+      "warning": "The applicant will be notified by email about the rejection with the stated reason.",
+      "confirm": "Reject"
+    },
+    "rejectionReasons": {
+      "inappropriate_content": "Inappropriate content",
+      "out_of_jurisdiction": "Out of jurisdiction",
+      "duplicate": "Duplicate request",
+      "not_serious": "Obviously not serious",
+      "other": "Other"
+    }
+  },
+  "admin": {
+    "requestTypes": {
+      "title": "Request types",
+      "newType": "New request type",
+      "columns": {
+        "name": "Name",
+        "status": "Status",
+        "fields": "Fields",
+        "attachments": "Attachments",
+        "updatedAt": "Updated",
+        "actions": "Actions"
+      },
+      "filter": {
+        "active": "Active",
+        "all": "All",
+        "archived": "Archived"
+      },
+      "activate": "Activate",
+      "deactivate": "Deactivate",
+      "duplicate": "Duplicate",
+      "archive": "Archive",
+      "edit": {
+        "title": "Edit request type",
+        "createTitle": "New request type",
+        "tabs": {
+          "basic": "Basic",
+          "fields": "Fields",
+          "attachments": "Attachments",
+          "preview": "Preview"
+        },
+        "nameHr": "Name (hr)",
+        "nameEn": "Name (en)",
+        "code": "Internal code",
+        "codeHelp": "Auto-generated from name. You can change it.",
+        "descriptionHr": "Description (hr)",
+        "descriptionEn": "Description (en)",
+        "isActive": "Active",
+        "estimatedDays": "Estimated processing time (days)",
+        "estimatedDaysHelp": "Leave empty for tenant default ({{days}}).",
+        "sortOrder": "Display order"
+      },
+      "fields": {
+        "title": "Form fields",
+        "addField": "Add field",
+        "editField": "Edit field",
+        "fieldType": "Field type",
+        "fieldKey": "Internal key",
+        "labelHr": "Label (hr)",
+        "labelEn": "Label (en)",
+        "helpTextHr": "Help text (hr)",
+        "helpTextEn": "Help text (en)",
+        "isRequired": "Required",
+        "advancedSettings": "Advanced settings",
+        "minValue": "Minimum value",
+        "maxValue": "Maximum value",
+        "regex": "Regular expression",
+        "options": "Options (for dropdown)",
+        "addOption": "Add option",
+        "optionValue": "Value",
+        "optionLabelHr": "Label (hr)",
+        "optionLabelEn": "Label (en)",
+        "fieldTypes": {
+          "text": "Text",
+          "textarea": "Multiline text",
+          "number": "Number",
+          "date": "Date",
+          "select": "Dropdown",
+          "checkbox": "Checkbox",
+          "oib": "OIB",
+          "iban": "IBAN",
+          "email": "Email",
+          "phone": "Phone"
+        },
+        "empty": "No fields yet. Add the first form field.",
+        "dragHint": "Drag to reorder"
+      },
+      "attachments": {
+        "title": "Attachments",
+        "addAttachment": "Add attachment",
+        "editAttachment": "Edit attachment",
+        "attachmentKey": "Internal key",
+        "labelHr": "Label (hr)",
+        "labelEn": "Label (en)",
+        "descriptionHr": "Description (hr)",
+        "descriptionEn": "Description (en)",
+        "isRequired": "Required",
+        "maxSize": "Maximum size",
+        "allowedMimeTypes": "Allowed formats",
+        "sizeOptions": {
+          "2mb": "2 MB",
+          "5mb": "5 MB",
+          "10mb": "10 MB",
+          "25mb": "25 MB"
+        },
+        "mimeTypes": {
+          "pdf": "PDF",
+          "images": "Images (JPG, PNG)",
+          "documents": "Documents (PDF, DOC, DOCX)",
+          "all": "All formats"
+        },
+        "empty": "No attachments yet. Add the first attachment.",
+        "dragHint": "Drag to reorder"
+      },
+      "version": {
+        "bumpWarning": "This type has {{count}} submitted requests. Your changes create a new form version (v{{version}}). Existing requests remain under the previous version. All drafts under the previous version will be locked for 30 days, after which they are deleted.",
+        "confirm": "Confirm version change"
+      },
+      "deleteWarning": "Are you sure you want to archive this request type?",
+      "deleteBlocked": "You cannot archive a request type that has active drafts or submitted requests. Deactivate it instead.",
+      "duplicateConfirm": "A copy of request type \"{{name}}\" will be created in inactive status.",
+      "usage": {
+        "title": "Usage",
+        "drafts": "Drafts",
+        "submitted": "Submitted",
+        "received": "Received",
+        "rejected": "Rejected",
+        "total": "Total"
+      }
+    },
+    "users": {
+      "title": "Users",
+      "newOfficer": "New officer",
+      "columns": {
+        "name": "Full name",
+        "email": "Email",
+        "type": "Role",
+        "status": "Status",
+        "lastLogin": "Last login"
+      },
+      "types": {
+        "citizen": "Citizen",
+        "jls_officer": "Officer",
+        "jls_admin": "Administrator"
+      }
+    }
+  },
+  "notifications": {
+    "title": "Notifications",
+    "markAllRead": "Mark all as read",
+    "empty": {
+      "title": "No notifications",
+      "description": "You have no new notifications."
+    }
+  },
+  "validation": {
+    "required": "Field \"{{field}}\" is required.",
+    "email": "Enter a valid email address.",
+    "minLength": "Minimum {{min}} characters.",
+    "maxLength": "Maximum {{max}} characters.",
+    "min": "Minimum value is {{min}}.",
+    "max": "Maximum value is {{max}}.",
+    "pattern": "Invalid format.",
+    "oib": "Invalid OIB (must be 11 digits with valid check digit).",
+    "iban": "Invalid IBAN."
   }
 }
