@@ -61,15 +61,15 @@
 - [x] GET /office/rejection-reasons — katalog razloga, i18n-aware
 
 ## Outbox + accept flow (sekcija 9 — KRITIČNO)
-- [ ] POST /office/requests/{id}/accept — jedna PostgreSQL transakcija: status check FOR UPDATE, outbox insert s idempotency_key=request_id, status→processing_registry, history insert
-- [ ] Sync wait s 12s timeout + async fallback (200 s aktId ili 202 s processing)
-- [ ] OutboxDispatcher BackgroundService — 5s interval, FOR UPDATE SKIP LOCKED, max 10 redova
-- [ ] ILocalDbAktWriter.WriteAktAsync — stub koji baca NotImplementedException (TODO sekcija 21.1)
-- [ ] Dispatcher success path: seup_akt_mappings INSERT ON CONFLICT DO NOTHING, status→received_in_registry, history, notifikacije
-- [ ] Dispatcher fail path: exponential backoff (5s, 25s, 2min, 10min, 52min), dead_letter nakon 5 pokušaja
-- [ ] IsDuplicate=true handling — tretira kao success, čita postojeći AktID
-- [ ] POST /office/requests/{id}/retry-accept — dead_letter→pending, attempts reset
-- [ ] OutboxStaleAlerter worker — 24h, dead_letter alert adminu (in-app + email)
+- [x] POST /office/requests/{id}/accept — jedna PostgreSQL transakcija: status check FOR UPDATE, outbox insert s idempotency_key=request_id, status→processing_registry, history insert
+- [x] Sync wait s 12s timeout + async fallback (200 s aktId ili 202 s processing)
+- [x] OutboxDispatcher BackgroundService — 5s interval, FOR UPDATE SKIP LOCKED, max 10 redova
+- [x] ILocalDbAktWriter.WriteAktAsync — stub koji baca NotImplementedException (TODO sekcija 21.1)
+- [x] Dispatcher success path: seup_akt_mappings INSERT ON CONFLICT DO NOTHING, status→received_in_registry, history, notifikacije
+- [x] Dispatcher fail path: exponential backoff (5s, 25s, 2min, 10min, 52min), dead_letter nakon 5 pokušaja
+- [x] IsDuplicate=true handling — tretira kao success, čita postojeći AktID
+- [x] POST /office/requests/{id}/retry-accept — dead_letter→pending, attempts reset
+- [x] OutboxStaleAlerter worker — 24h, dead_letter alert adminu (in-app + email)
 
 ## Notifikacije (sekcija 14 + API 10.7)
 - [ ] GET /notifications — paginirano, za current user

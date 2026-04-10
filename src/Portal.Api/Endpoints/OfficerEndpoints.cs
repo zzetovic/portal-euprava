@@ -1,7 +1,9 @@
 using System.Text.Json;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Portal.Application.Commands.Office.AcceptRequest;
 using Portal.Application.Commands.Office.RejectRequest;
+using Portal.Application.Commands.Office.RetryAccept;
 using Portal.Application.DTOs.Office;
 using Portal.Application.Interfaces;
 using Portal.Application.Queries.Office.GetInbox;
@@ -123,6 +125,76 @@ public static class OfficerEndpoints
 
             var stream = await attachmentStorage.OpenReadAsync(attachment.StorageKey, CancellationToken.None);
             return Results.File(stream, attachment.MimeType, attachment.OriginalFilename);
+        });
+
+        group.MapPost("/requests/{id:guid}/accept", async (
+            Guid id,
+            ICurrentUserService currentUser,
+            ITenantProvider tenantProvider,
+            IMediator mediator,
+            IPortalDbContext db) =>
+        {
+            if (!IsOfficer(currentUser)) return Results.Forbid();
+            try
+            {
+                var result = await mediator.Send(new AcceptRequestCommand(
+                    tenantProvider.GetCurrentTenantId(), currentUser.UserId!.Value, id));
+
+                // Sync wait with 12s timeout (CLAUDE.md sec 9.2 step 2)
+                var outboxEntry = await db.IntegrationOutbox.FindAsync(result.OutboxId);
+                if (outboxEntry is not null)
+                {
+                    var deadline = DateTime.UtcNow.AddSeconds(12);
+                    while (DateTime.UtcNow < deadline)
+                    {
+                        await Task.Delay(500);
+                        // Reload from DB
+                        await ((Microsoft.EntityFrameworkCore.DbContext)(object)db).Entry(outboxEntry).ReloadAsync();
+                        if (outboxEntry.Status == OutboxStatus.Done)
+                        {
+                            var mapping = await db.SeupAktMappings
+                                .FirstOrDefaultAsync(m => m.RequestId == id);
+                            return Results.Ok(new { aktId = mapping?.AktId, status = "received_in_registry" });
+                        }
+                        if (outboxEntry.Status == OutboxStatus.DeadLetter || outboxEntry.Status == OutboxStatus.Failed)
+                            break;
+                    }
+                }
+
+                // Timeout or failure - return 202 Accepted
+                return Results.Accepted(value: new { status = "processing", outboxId = result.OutboxId });
+            }
+            catch (InvalidOperationException ex) when (ex.Message == "REQUEST_NOT_FOUND")
+            {
+                return Results.NotFound();
+            }
+            catch (InvalidOperationException ex) when (ex.Message == "REQUEST_NOT_SUBMITTED")
+            {
+                return Results.Conflict(new { detail = "Zahtjev nije u statusu za zaprimanje." });
+            }
+            catch (InvalidOperationException ex) when (ex.Message == "ALREADY_PROCESSING")
+            {
+                return Results.Conflict(new { detail = "Zahtjev se već obrađuje." });
+            }
+        });
+
+        group.MapPost("/requests/{id:guid}/retry-accept", async (
+            Guid id,
+            ICurrentUserService currentUser,
+            ITenantProvider tenantProvider,
+            IMediator mediator) =>
+        {
+            if (!IsOfficer(currentUser)) return Results.Forbid();
+            try
+            {
+                await mediator.Send(new RetryAcceptCommand(
+                    tenantProvider.GetCurrentTenantId(), currentUser.UserId!.Value, id));
+                return Results.Ok(new { status = "pending" });
+            }
+            catch (InvalidOperationException ex) when (ex.Message == "OUTBOX_NOT_FOUND")
+            {
+                return Results.NotFound(new { detail = "Nema dead-letter zapisa za ovaj zahtjev." });
+            }
         });
 
         group.MapPost("/requests/{id:guid}/reject", async (

@@ -2,6 +2,7 @@ using Portal.Api.Cli;
 using Portal.Api.Endpoints;
 using Portal.Api.Middleware;
 using Portal.Api.Services;
+using Portal.Api.Workers;
 using Portal.Application;
 using Portal.Application.Interfaces;
 using Portal.Infrastructure.Email;
@@ -36,6 +37,9 @@ builder.Services.AddIdentityInfrastructure(builder.Configuration);
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 builder.Services.AddScoped<ITenantProvider, HttpTenantProvider>();
+
+// Background workers
+builder.Services.AddHostedService<OutboxDispatcher>();
 
 // CORS
 builder.Services.AddCors(options =>
