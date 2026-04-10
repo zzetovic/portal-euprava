@@ -15,15 +15,15 @@ public static class NotificationEndpoints
             .RequireAuthorization();
 
         group.MapGet("/", async (
-            int page,
-            int pageSize,
+            int? page,
+            int? pageSize,
             ICurrentUserService currentUser,
             ITenantProvider tenantProvider,
             IMediator mediator) =>
         {
             if (currentUser.UserId is null) return Results.Unauthorized();
-            var p = page < 1 ? 1 : page;
-            var ps = pageSize is < 1 or > 100 ? 20 : pageSize;
+            var p = page is null or < 1 ? 1 : page.Value;
+            var ps = pageSize is null or < 1 or > 100 ? 20 : pageSize.Value;
 
             var result = await mediator.Send(new GetNotificationsQuery(
                 tenantProvider.GetCurrentTenantId(), currentUser.UserId.Value, p, ps));

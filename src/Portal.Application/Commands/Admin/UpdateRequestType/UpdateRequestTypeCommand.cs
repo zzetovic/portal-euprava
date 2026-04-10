@@ -96,7 +96,7 @@ public class UpdateRequestTypeCommandHandler(IPortalDbContext db)
                     FieldKey = f.FieldKey,
                     LabelI18n = f.LabelI18n,
                     HelpTextI18n = f.HelpTextI18n,
-                    FieldType = Enum.Parse<FieldType>(f.FieldType),
+                    FieldType = Enum.Parse<FieldType>(f.FieldType, ignoreCase: true),
                     IsRequired = f.IsRequired,
                     ValidationRules = f.ValidationRules,
                     Options = f.Options,

@@ -78,15 +78,15 @@ public static class CitizenRequestEndpoints
 
         reqGroup.MapGet("/", async (
             string? status,
-            int page,
-            int pageSize,
+            int? page,
+            int? pageSize,
             ICurrentUserService currentUser,
             ITenantProvider tenantProvider,
             IMediator mediator) =>
         {
             if (!IsCitizen(currentUser)) return Results.Forbid();
-            var p = page < 1 ? 1 : page;
-            var ps = pageSize is < 1 or > 100 ? 20 : pageSize;
+            var p = page is null or < 1 ? 1 : page.Value;
+            var ps = pageSize is null or < 1 or > 100 ? 20 : pageSize.Value;
             var result = await mediator.Send(new GetMyRequestsQuery(
                 tenantProvider.GetCurrentTenantId(), currentUser.UserId!.Value, status, p, ps));
             return Results.Ok(result);

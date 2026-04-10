@@ -28,15 +28,15 @@ public static class OfficerEndpoints
             DateTime? dateFrom,
             DateTime? dateTo,
             string? sort,
-            int page,
-            int size,
+            int? page,
+            int? size,
             ICurrentUserService currentUser,
             ITenantProvider tenantProvider,
             IMediator mediator) =>
         {
             if (!IsOfficer(currentUser)) return Results.Forbid();
-            var p = page < 1 ? 1 : page;
-            var s = size is < 1 or > 100 ? 25 : size;
+            var p = page is null or < 1 ? 1 : page.Value;
+            var s = size is null or < 1 or > 100 ? 25 : size.Value;
 
             var result = await mediator.Send(new GetInboxQuery(
                 tenantProvider.GetCurrentTenantId(),
