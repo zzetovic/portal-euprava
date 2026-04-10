@@ -52,13 +52,13 @@
 - [ ] Rate limit: max 5 POST /requests per citizen per day
 
 ## Officer — back-office (sekcija 13 + API 10.4)
-- [ ] GET /office/inbox — tab filter (pending/received/rejected/all), search, date range, sort (default oldest first), pagination 25/50/100
-- [ ] GET /office/inbox/unread-count — za sidebar badge, cache 30s per tenant
-- [ ] GET /office/requests/{id} — auto-mark viewed_first_at + viewed_first_by_user_id na prvom otvaranju, audit log
-- [ ] GET /office/requests/{id}/attachments/{attId}/preview — stream, Content-Disposition: inline
-- [ ] GET /office/requests/{id}/attachments/{attId}/download — stream, Content-Disposition: attachment, audit log (bez original_filename!)
-- [ ] POST /office/requests/{id}/reject — razlog obvezan, internal_note obvezan ako razlog=other, status→rejected_by_officer, enqueue notifikacije
-- [ ] GET /office/rejection-reasons — katalog razloga, i18n-aware
+- [x] GET /office/inbox — tab filter (pending/received/rejected/all), search, date range, sort (default oldest first), pagination 25/50/100
+- [x] GET /office/inbox/unread-count — za sidebar badge, cache 30s per tenant
+- [x] GET /office/requests/{id} — auto-mark viewed_first_at + viewed_first_by_user_id na prvom otvaranju, audit log
+- [x] GET /office/requests/{id}/attachments/{attId}/preview — stream, Content-Disposition: inline
+- [x] GET /office/requests/{id}/attachments/{attId}/download — stream, Content-Disposition: attachment, audit log (bez original_filename!)
+- [x] POST /office/requests/{id}/reject — razlog obvezan, internal_note obvezan ako razlog=other, status→rejected_by_officer, enqueue notifikacije
+- [x] GET /office/rejection-reasons — katalog razloga, i18n-aware
 
 ## Outbox + accept flow (sekcija 9 — KRITIČNO)
 - [ ] POST /office/requests/{id}/accept — jedna PostgreSQL transakcija: status check FOR UPDATE, outbox insert s idempotency_key=request_id, status→processing_registry, history insert

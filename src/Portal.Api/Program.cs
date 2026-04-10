@@ -78,5 +78,6 @@ app.MapHealthEndpoints();
 app.MapAuthEndpoints();
 app.MapAdminRequestTypeEndpoints();
 app.MapCitizenRequestEndpoints();
+app.MapOfficerEndpoints();
 
 app.Run();
