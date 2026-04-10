@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Portal.Application.Interfaces;
 
 namespace Portal.Infrastructure.Identity;
 
@@ -13,6 +14,9 @@ public static class DependencyInjection
         var jwtSettings = new JwtSettings();
         configuration.GetSection("Jwt").Bind(jwtSettings);
         services.AddSingleton(jwtSettings);
+
+        services.AddSingleton<IPasswordHasher, BcryptPasswordHasher>();
+        services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
 
         services.AddAuthentication(options =>
         {

@@ -1,14 +1,14 @@
 # Backend zadaci — Sprint 1
 
 ## Auth sustav
-- [ ] POST /auth/register — citizen self-registration, email+password, BCrypt hash, email_verification_token
-- [ ] POST /auth/verify-email — token validation, set email_verified_at
-- [ ] POST /auth/login — credentials check, JWT access (15min) + refresh token (14d, httpOnly cookie)
-- [ ] POST /auth/refresh — rotate refresh token, return new access
-- [ ] POST /auth/logout — revoke refresh token
-- [ ] POST /auth/password/forgot — generate password_reset_token, enqueue email
-- [ ] POST /auth/password/reset — validate token, update password_hash
-- [ ] GET /auth/me — return current user profile from JWT claims
+- [x] POST /auth/register — citizen self-registration, email+password, BCrypt hash, email_verification_token
+- [x] POST /auth/verify-email — token validation, set email_verified_at
+- [x] POST /auth/login — credentials check, JWT access (15min) + refresh token (14d, httpOnly cookie)
+- [x] POST /auth/refresh — rotate refresh token, return new access
+- [x] POST /auth/logout — revoke refresh token
+- [x] POST /auth/password/forgot — generate password_reset_token, enqueue email
+- [x] POST /auth/password/reset — validate token, update password_hash
+- [x] GET /auth/me — return current user profile from JWT claims
 - [ ] Tenant middleware — extract X-Tenant-Code header, cross-check with JWT claim, SET app.tenant_id for RLS
 - [ ] must_change_password flag — force password change on first login for bootstrap users
 

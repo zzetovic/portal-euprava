@@ -36,6 +36,9 @@ public class TenantMiddleware(RequestDelegate next)
     private static bool IsPublicEndpoint(PathString path)
     {
         return path.StartsWithSegments("/api/v1/health")
-            || path.StartsWithSegments("/api/v1/meta");
+            || path.StartsWithSegments("/api/v1/meta")
+            || path.StartsWithSegments("/api/v1/auth/verify-email")
+            || path.StartsWithSegments("/api/v1/auth/refresh")
+            || path.StartsWithSegments("/api/v1/auth/password/reset");
     }
 }
