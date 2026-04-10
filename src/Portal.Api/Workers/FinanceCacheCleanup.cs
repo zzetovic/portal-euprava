@@ -10,6 +10,8 @@ public class FinanceCacheCleanup(
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        await Task.Yield(); // Ensure host startup is not blocked
+
         if (!configuration.GetValue("Workers:FinanceCacheCleanup:Enabled", true))
         {
             logger.LogInformation("FinanceCacheCleanup is disabled");

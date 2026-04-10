@@ -13,6 +13,8 @@ public class OutboxDispatcher(
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        await Task.Yield(); // Ensure host startup is not blocked
+
         if (!configuration.GetValue("Workers:OutboxDispatcher:Enabled", true))
         {
             logger.LogInformation("OutboxDispatcher is disabled");

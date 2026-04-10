@@ -11,6 +11,8 @@ public class EmailDispatcher(
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        await Task.Yield(); // Ensure host startup is not blocked
+
         if (!configuration.GetValue("Workers:EmailDispatcher:Enabled", true))
         {
             logger.LogInformation("EmailDispatcher is disabled");

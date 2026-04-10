@@ -10,6 +10,8 @@ public class RefreshTokenCleanup(
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        await Task.Yield(); // Ensure host startup is not blocked
+
         if (!configuration.GetValue("Workers:RefreshTokenCleanup:Enabled", true))
         {
             logger.LogInformation("RefreshTokenCleanup is disabled");

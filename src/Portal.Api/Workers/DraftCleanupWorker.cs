@@ -13,6 +13,8 @@ public class DraftCleanupWorker(
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        await Task.Yield(); // Ensure host startup is not blocked
+
         if (!configuration.GetValue("Workers:DraftCleanupWorker:Enabled", true))
         {
             logger.LogInformation("DraftCleanupWorker is disabled");
