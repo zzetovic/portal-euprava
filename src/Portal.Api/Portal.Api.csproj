@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>13</LangVersion>
+    <RootNamespace>Portal.Api</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Portal.Application\Portal.Application.csproj" />
+    <ProjectReference Include="..\Portal.Infrastructure.Persistence\Portal.Infrastructure.Persistence.csproj" />
+    <ProjectReference Include="..\Portal.Infrastructure.LocalDb\Portal.Infrastructure.LocalDb.csproj" />
+    <ProjectReference Include="..\Portal.Infrastructure.Storage\Portal.Infrastructure.Storage.csproj" />
+    <ProjectReference Include="..\Portal.Infrastructure.Email\Portal.Infrastructure.Email.csproj" />
+    <ProjectReference Include="..\Portal.Infrastructure.Identity\Portal.Infrastructure.Identity.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.3" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+    <PackageReference Include="MediatR" Version="12.4.1" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.3" />
+    <PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />
+  </ItemGroup>
+
+</Project>
