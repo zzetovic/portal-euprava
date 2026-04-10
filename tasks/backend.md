@@ -35,20 +35,20 @@
 - [x] Audit log za sve admin akcije (created, updated, version_bumped, activated, deactivated, archived, duplicated)
 
 ## Građanin — zahtjevi (sekcija 12 + API 10.3)
-- [ ] GET /request-types — samo aktivni za tenant, i18n-aware
-- [ ] GET /request-types/{code} — preflight detalj (name, description, fields summary, attachments, estimatedProcessingDays s fallback)
-- [ ] GET /request-types/{id}/schema — puna shema za render forme
-- [ ] POST /requests — kreira draft, snapshot sheme, reference_number (ZHT-YYYY-NNNNNN), expires_at=now+90d
-- [ ] GET /requests — moji zahtjevi, paginirano, filter po statusu. CitizenRequestStatusMapper: processing_registry → submitted
-- [ ] GET /requests/{id} — detalj (samo vlasnik, RLS)
-- [ ] PATCH /requests/{id} — auto-save formData, If-Match ETag, sliding expires_at reset, samo draft
-- [ ] DELETE /requests/{id} — samo draft, background delete privitaka iz storage-a
-- [ ] POST /requests/{id}/attachments — multipart upload, server-side MIME check (magic bytes), checksum
-- [ ] DELETE /requests/{id}/attachments/{attId} — samo prije submita
-- [ ] POST /requests/{id}/submit — validacija svih obveznih polja + privitaka, status draft→submitted, enqueue email+in-app notifikacija
-- [ ] GET /requests/{id}/attachments/{attId}/download — stream, samo vlasnik
-- [ ] GET /requests/{id}/history — status history
-- [ ] Email verification check — blokiraj submit ako email_verified_at IS NULL
+- [x] GET /request-types — samo aktivni za tenant, i18n-aware
+- [x] GET /request-types/{code} — preflight detalj (name, description, fields summary, attachments, estimatedProcessingDays s fallback)
+- [x] GET /request-types/{id}/schema — puna shema za render forme
+- [x] POST /requests — kreira draft, snapshot sheme, reference_number (ZHT-YYYY-NNNNNN), expires_at=now+90d
+- [x] GET /requests — moji zahtjevi, paginirano, filter po statusu. CitizenRequestStatusMapper: processing_registry → submitted
+- [x] GET /requests/{id} — detalj (samo vlasnik, RLS)
+- [x] PATCH /requests/{id} — auto-save formData, If-Match ETag, sliding expires_at reset, samo draft
+- [x] DELETE /requests/{id} — samo draft, background delete privitaka iz storage-a
+- [x] POST /requests/{id}/attachments — multipart upload, server-side MIME check (magic bytes), checksum
+- [x] DELETE /requests/{id}/attachments/{attId} — samo prije submita
+- [x] POST /requests/{id}/submit — validacija svih obveznih polja + privitaka, status draft→submitted, enqueue email+in-app notifikacija
+- [x] GET /requests/{id}/attachments/{attId}/download — stream, samo vlasnik
+- [x] GET /requests/{id}/history — status history
+- [x] Email verification check — blokiraj submit ako email_verified_at IS NULL
 - [ ] Rate limit: max 5 POST /requests per citizen per day
 
 ## Officer — back-office (sekcija 13 + API 10.4)
