@@ -49,7 +49,7 @@
 - [x] GET /requests/{id}/attachments/{attId}/download — stream, samo vlasnik
 - [x] GET /requests/{id}/history — status history
 - [x] Email verification check — blokiraj submit ako email_verified_at IS NULL
-- [ ] Rate limit: max 5 POST /requests per citizen per day
+- [x] Rate limit: max 5 POST /requests per citizen per day
 
 ## Officer — back-office (sekcija 13 + API 10.4)
 - [x] GET /office/inbox — tab filter (pending/received/rejected/all), search, date range, sort (default oldest first), pagination 25/50/100
@@ -76,7 +76,7 @@
 - [x] POST /notifications/{id}/read — mark is_read, set read_at
 - [x] POST /notifications/read-all — bulk mark za current user
 - [x] EmailDispatcher BackgroundService — 5s interval, procesira pending notification_deliveries channel=email
-- [ ] Razor email templates skeleton (zahtjev podnesen, zaprimljen, odbijen, draft istječe)
+- [x] Razor email templates skeleton (zahtjev podnesen, zaprimljen, odbijen, draft istječe)
 
 ## Background workeri (sekcija 15)
 - [x] DraftCleanupWorker — 24h noću: briše draftove s expires_at<=now, upozorenja 7 dana prije isteka

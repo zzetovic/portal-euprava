@@ -1,0 +1,35 @@
+@* Email template: Request rejected *@
+@{
+    var referenceNumber = Model.ReferenceNumber;
+    var rejectionReason = Model.RejectionReason;
+}
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="utf-8" />
+    <style>
+        body { font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; }
+        .header { background: #991b1b; color: white; padding: 20px; text-align: center; }
+        .content { padding: 20px; }
+        .reference { font-size: 18px; font-weight: bold; color: #991b1b; }
+        .reason { padding: 12px; background: #fef2f2; border-left: 4px solid #991b1b; margin: 16px 0; }
+        .footer { padding: 20px; color: #666; font-size: 12px; border-top: 1px solid #eee; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Zahtjev odbijen</h1>
+    </div>
+    <div class="content">
+        <p>Poštovani,</p>
+        <p>Vaš zahtjev <span class="reference">@referenceNumber</span> je odbijen.</p>
+        <div class="reason">
+            <strong>Razlog:</strong> @rejectionReason
+        </div>
+        <p>Možete podnijeti novi zahtjev ako smatrate da je to primjereno.</p>
+    </div>
+    <div class="footer">
+        <p>Ova poruka je automatski generirana. Molimo ne odgovarajte na nju.</p>
+    </div>
+</body>
+</html>

@@ -17,6 +17,16 @@ public class CreateDraftCommandHandler(IPortalDbContext db) : IRequestHandler<Cr
 {
     public async Task<CitizenRequestDetailDto> Handle(CreateDraftCommand request, CancellationToken ct)
     {
+        // Rate limit: max 5 requests per citizen per day
+        var today = DateTime.UtcNow.Date;
+        var todayCount = await db.Requests.CountAsync(
+            r => r.CitizenId == request.CitizenId
+                && r.TenantId == request.TenantId
+                && r.CreatedAt >= today, ct);
+
+        if (todayCount >= 5)
+            throw new InvalidOperationException("DAILY_LIMIT_EXCEEDED");
+
         var rt = await db.RequestTypes
             .Include(r => r.Fields.OrderBy(f => f.SortOrder))
             .Include(r => r.Attachments.OrderBy(a => a.SortOrder))

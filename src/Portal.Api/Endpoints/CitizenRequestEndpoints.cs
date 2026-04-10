@@ -109,6 +109,10 @@ public static class CitizenRequestEndpoints
             {
                 return Results.BadRequest(new { detail = "Vrsta zahtjeva nije pronađena ili nije aktivna." });
             }
+            catch (InvalidOperationException ex) when (ex.Message == "DAILY_LIMIT_EXCEEDED")
+            {
+                return Results.Json(new { detail = "Dnevni limit od 5 zahtjeva je dosegnut." }, statusCode: 429);
+            }
         });
 
         reqGroup.MapGet("/{id:guid}", async (

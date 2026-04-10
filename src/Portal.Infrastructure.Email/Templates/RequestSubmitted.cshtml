@@ -1,0 +1,33 @@
+@* Email template: Request submitted confirmation *@
+@{
+    var referenceNumber = Model.ReferenceNumber;
+    var requestTypeName = Model.RequestTypeName;
+}
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="utf-8" />
+    <style>
+        body { font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; }
+        .header { background: #1a56db; color: white; padding: 20px; text-align: center; }
+        .content { padding: 20px; }
+        .reference { font-size: 18px; font-weight: bold; color: #1a56db; }
+        .footer { padding: 20px; color: #666; font-size: 12px; border-top: 1px solid #eee; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Zahtjev podnesen</h1>
+    </div>
+    <div class="content">
+        <p>Poštovani,</p>
+        <p>Vaš zahtjev je uspješno podnesen.</p>
+        <p>Referentni broj: <span class="reference">@referenceNumber</span></p>
+        <p>Vrsta zahtjeva: @requestTypeName</p>
+        <p>Službena osoba pregledat će vaš zahtjev u najkraćem mogućem roku.</p>
+    </div>
+    <div class="footer">
+        <p>Ova poruka je automatski generirana. Molimo ne odgovarajte na nju.</p>
+    </div>
+</body>
+</html>

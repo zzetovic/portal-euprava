@@ -1,0 +1,33 @@
+@* Email template: Request received in registry *@
+@{
+    var referenceNumber = Model.ReferenceNumber;
+    var aktId = Model.AktId;
+}
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="utf-8" />
+    <style>
+        body { font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; }
+        .header { background: #059669; color: white; padding: 20px; text-align: center; }
+        .content { padding: 20px; }
+        .reference { font-size: 18px; font-weight: bold; color: #059669; }
+        .akt { font-size: 16px; font-weight: bold; }
+        .footer { padding: 20px; color: #666; font-size: 12px; border-top: 1px solid #eee; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Zahtjev zaprimljen u pisarnicu</h1>
+    </div>
+    <div class="content">
+        <p>Poštovani,</p>
+        <p>Vaš zahtjev <span class="reference">@referenceNumber</span> je zaprimljen u pisarnicu.</p>
+        <p>Broj akta: <span class="akt">@aktId</span></p>
+        <p>Daljnji tijek vodi se u sustavu uredskog poslovanja. Za dodatne informacije obratite se nadležnom tijelu.</p>
+    </div>
+    <div class="footer">
+        <p>Ova poruka je automatski generirana. Molimo ne odgovarajte na nju.</p>
+    </div>
+</body>
+</html>
